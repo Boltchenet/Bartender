@@ -1,0 +1,383 @@
+/* =================== */
+/* === VARIABLES ==== */
+/* =================== */
+:root {
+    --gold: #D4AF37;
+    --dark-gold: #B8860B;
+    --black: #1A1A1A;
+    --dark-gray: #2D2D2D;
+    --light-gray: #F5F5F5;
+    --white: #FFFFFF;
+    --transition: 0.3s ease;
+}
+
+/* =================== */
+/* === BASE ======== */
+/* =================== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--black);
+    background-color: var(--white);
+    line-height: 1.6;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+h2, h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* =================== */
+/* === HEADER ====== */
+/* =================== */
+.main-header {
+    background-color: var(--black);
+    padding: 2rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.slogan {
+    color: var(--white);
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    margin-top: -0.5rem;
+    font-weight: 300;
+}
+
+/* =================== */
+/* === SECTIONS ==== */
+/* =================== */
+.hero-section, .profiles-section, .order-section {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before, 
+.profiles-section::before, 
+.order-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#recipes-hero {
+    background-image: url('https://images.unsplash.com/photo-1551751299-1b51cab2694c?...');
+}
+
+#profiles-hero {
+    background-image: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?...');
+}
+
+/* Style spécial pour la section commande avec deux images */
+#order-hero {
+    background-image: none !important;
+    position: relative;
+}
+
+#order-hero::before, 
+#order-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 1;
+}
+
+#order-hero::before {
+    left: 0;
+    background-image: url('https://www.ehonline.eu/wp-content/uploads/2018/11/alcohol-bar-beer-min-scaled.jpg');
+}
+
+#order-hero::after {
+    right: 0;
+    background-image: url('https://offloadmedia.feverup.com/marseillesecrete.com/wp-content/uploads/2023/09/13122219/meilleurs-bars-Marseille.png');
+}
+
+#order-hero .section-content {
+    position: relative;
+    z-index: 3;
+}
+
+/* Séparateur stylé */
+.bar-separator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 80%;
+    width: 2px;
+    background: var(--gold);
+    z-index: 2;
+    box-shadow: 0 0 10px var(--gold);
+}
+
+.bar-separator::before,
+.bar-separator::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+}
+
+.bar-separator::before {
+    top: -40px;
+}
+
+.bar-separator::after {
+    bottom: -40px;
+}
+
+.hero-content, .section-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    color: var(--white);
+    text-align: center;
+    animation: fadeInUp 1s ease;
+}
+
+.hero-content h2, .section-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--gold);
+}
+
+.hero-content p, .section-content p {
+    font-size: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* =================== */
+/* === BOUTONS ===== */
+/* =================== */
+.gold-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: transparent;
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    font-size: 1.1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all var(--transition);
+}
+
+.gold-button:hover {
+    background-color: var(--gold);
+    color: var(--black);
+    transform: translateY(-2px);
+}
+
+/* =================== */
+/* === FOOTER ====== */
+/* =================== */
+footer {
+    background-color: var(--black);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+}
+
+/* =================== */
+/* === RECETTES ==== */
+/* =================== */
+.recipe-page {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+.cocktail-list {
+    width: 25%;
+    background-color: var(--dark-gray);
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cocktail-card {
+    background-color: var(--black);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    overflow: hidden;
+    color: var(--white);
+    text-align: center;
+    cursor: pointer;
+    transition: transform var(--transition), background-color var(--transition);
+}
+
+.cocktail-card:hover {
+    background-color: var(--dark-gold);
+    transform: scale(1.03);
+}
+
+.cocktail-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cocktail-card p {
+    margin: 0.5rem 0;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Interface Craft */
+.craft-interface {
+    width: 75%;
+    padding: 3rem;
+    background-color: var(--light-gray);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.cocktail-title {
+    font-size: 2.5rem;
+    color: var(--black);
+    text-align: center;
+}
+
+.craft-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.tools-section, .ingredients-section {
+    background-color: var(--white);
+    border-left: 5px solid var(--gold);
+    padding: 1rem 2rem;
+    flex: 1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.craft-steps {
+    background-color: var(--white);
+    border-left: 5px solid var(--black);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.tools-section h3, .ingredients-section h3, .craft-steps h3 {
+    color: var(--dark-gold);
+    margin-bottom: 1rem;
+}
+
+ul, ol {
+    padding-left: 1.5rem;
+    margin: 0;
+}
+
+/* =================== */
+/* === RESPONSIVE === */
+/* =================== */
+@media (max-width: 1024px) {
+    .recipe-page {
+        flex-direction: column;
+    }
+
+    .cocktail-list, .craft-interface {
+        width: 100%;
+    }
+
+    .craft-top {
+        flex-direction: column;
+    }
+
+    /* Adaptation pour la section commande en mobile */
+    #order-hero::before, 
+    #order-hero::after {
+        width: 100%;
+        height: 50%;
+    }
+
+    #order-hero::before {
+        top: 0;
+        left: 0;
+    }
+
+    #order-hero::after {
+        top: 50%;
+        left: 0;
+        right: auto;
+    }
+
+    .bar-separator {
+        height: 2px;
+        width: 80%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .bar-separator::before {
+        left: -40px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .bar-separator::after {
+        right: -40px;
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+/* =================== */
+/* === ANIMATIONS === */
+/* =================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
