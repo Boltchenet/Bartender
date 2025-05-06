@@ -8,7 +8,80 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* Nouveau style pour la section commande avec deux images */
+        #order-hero {
+            background-image: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #order-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background-image: url('https://www.ehonline.eu/wp-content/uploads/2018/11/alcohol-bar-beer-min-scaled.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+        
+        #order-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background-image: url('https://offloadmedia.feverup.com/marseillesecrete.com/wp-content/uploads/2023/09/13122219/meilleurs-bars-Marseille.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+        
+        #order-hero .section-content {
+            position: relative;
+            z-index: 3;
+        }
+        
+        /* Séparateur stylé */
+        .bar-separator {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            height: 80%;
+            width: 2px;
+            background: var(--gold);
+            z-index: 2;
+            box-shadow: 0 0 10px var(--gold);
+        }
+        
+        .bar-separator::before,
+        .bar-separator::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .bar-separator::before {
+            top: -40px;
+        }
+        
+        .bar-separator::after {
+            bottom: -40px;
+        }
+    </style>
 </head>
 <body>
     <!-- En-tête avec logo doré -->
@@ -35,12 +108,13 @@
         <div class="section-content">
             <h2>Vos Établissements</h2>
             <p>Gérez les préférences de chaque bar ou restaurant</p>
-            <a href="#profiles-page" class="gold-button">Vos profils</a>
+            <a href="etablissements.html" class="gold-button">Vos profils</a>
         </div>
     </section>
 
     <!-- Section Commande avec barman -->
     <section class="order-section" id="order-hero">
+        <div class="bar-separator"></div>
         <div class="section-content">
             <h2>Service au Bar</h2>
             <p>Gérez vos commandes et préparation en temps réel</p>

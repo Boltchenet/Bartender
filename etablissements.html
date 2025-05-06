@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Établissements - Barman Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/establishments.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo-container">
+            <h1 class="logo">Barman Pro</h1>
+            <p class="slogan">Gestion des établissements</p>
+        </div>
+    </header>
+
+    <main class="establishments-app">
+        <!-- Barre des établissements -->
+        <section class="establishments-bar">
+            <h2 class="section-title">Vos Établissements</h2>
+            <div class="establishments-container" id="establishments-container">
+                <!-- Généré par JS -->
+            </div>
+        </section>
+
+        <!-- Contenu principal -->
+        <div class="main-content">
+            <!-- Liste des cocktails -->
+            <aside class="cocktails-sidebar" id="cocktails-sidebar">
+                <h3 class="sidebar-title">Cocktails</h3>
+                <div class="cocktails-list" id="cocktails-list">
+                    <!-- Généré par JS -->
+                </div>
+            </aside>
+
+            <!-- Détails du cocktail -->
+            <section class="cocktail-details" id="cocktail-details">
+                <div class="cocktail-header">
+                    <img src="" alt="" id="cocktail-image" class="cocktail-image">
+                    <div class="cocktail-info">
+                        <h2 id="cocktail-name">Sélectionnez un cocktail</h2>
+                        <p class="cocktail-type" id="cocktail-type"></p>
+                    </div>
+                </div>
+
+                <div class="cocktail-content">
+                    <div class="ingredients-section">
+                        <h3>Ingrédients</h3>
+                        <ul id="ingredients-list">
+                            <li class="empty-state">Aucun cocktail sélectionné</li>
+                        </ul>
+                    </div>
+
+                    <div class="tools-section">
+                        <h3>Outils nécessaires</h3>
+                        <ul id="tools-list">
+                            <li class="empty-state">Aucun cocktail sélectionné</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>Recette</h3>
+                        <ol id="recipe-steps">
+                            <li class="empty-state">Aucun cocktail sélectionné</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="etablissements.js"></script>
+</body>
+</html>

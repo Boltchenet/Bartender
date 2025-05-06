@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/recipes.css">
   <style>
     .recipe-page {
       display: flex;
@@ -29,6 +29,11 @@
       overflow: hidden;
       border-radius: 10px;
       cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .cocktail-card:hover {
+      transform: scale(1.05);
     }
 
     .cocktail-card img {
@@ -42,17 +47,21 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.7);
       color: white;
       font-weight: bold;
       text-align: center;
       padding: 5px;
       margin: 0;
       font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .craft-interface {
       flex: 1;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -77,23 +86,23 @@
       <p>Martini Dry</p>
     </div>
     <div class="cocktail-card" onclick="showRecipe('pina_colada')">
-      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/06/Pina-Colada-002.jpg" alt="Piña Colada">
+      <img src="https://assets.afcdn.com/recipe/20180605/79412_w1024h1024c1cx2000cy3000cxt0cyt0cxb4000cyb6000.jpg" alt="Piña Colada">
       <p>Piña Colada</p>
     </div>
     <div class="cocktail-card" onclick="showRecipe('virgin_sunrise')">
-      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/05/Virgin-Tequila-Sunrise-002.jpg" alt="Virgin Sunrise">
+      <img src="https://www.tables-auberges.com/storage/uploads/2023/12/AdobeStock_202944941-min-scaled.jpeg" alt="Virgin Sunrise">
       <p>Virgin Sunrise</p>
     </div>
     <div class="cocktail-card" onclick="showRecipe('virgin_mojito')">
-      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/06/Virgin-Mojito-002.jpg" alt="Virgin Mojito">
+      <img src="https://shop.pierre-chavin.com/img/cms/Page%20Mocktails/Virgin%20Mojito/MOJITO_CHAVIN_SANS%20ALCOOL_2023%20HD%20(19).jpg" alt="Virgin Mojito">
       <p>Virgin Mojito</p>
     </div>
     <div class="cocktail-card" onclick="showRecipe('daiquiri')">
-      <img src="https://www.acouplecooks.com/wp-content/uploads/2020/08/Daiquiri-006.jpg" alt="Daiquiri">
+      <img src="https://www.liquor.com/thmb/ffYicPLJk00SWKg2shV67TPHV74=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Daiquiri_3000x3000_primary-206eb2330cb04852ab7d780dcf3d55ef.jpg" alt="Daiquiri">
       <p>Daiquiri</p>
     </div>
     <div class="cocktail-card" onclick="showRecipe('margarita')">
-      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/02/Margarita-002.jpg" alt="Margarita">
+      <img src="https://www.santospirits.com/wp-content/uploads/2024/01/velvet_kickstand_margarita.jpg" alt="Margarita">
       <p>Margarita</p>
     </div>
   </aside>
