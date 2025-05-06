@@ -1,0 +1,134 @@
+<!DOCTYPE html> 
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recettes de Cocktails - Barman Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .recipe-page {
+      display: flex;
+      gap: 20px;
+    }
+
+    .cocktail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 150px;
+      flex-shrink: 0;
+    }
+
+    .cocktail-card {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .cocktail-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cocktail-card p {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      padding: 5px;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .craft-interface {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="logo-container">
+    <a href="index.html"><h1 class="logo">Barman</h1></a>
+    <p class="slogan">L'art du cocktail à portée de main</p>
+  </div>
+</header>
+
+<main class="recipe-page" id="recipes-page">
+
+  <aside class="cocktail-list">
+    <div class="cocktail-card" onclick="showRecipe('mojito')">
+      <img src="https://www.liquor.com/thmb/MJRVqf-itJGY90nwUOYGXnyG-HA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mojito-720x720-primary-6a57f80e200c412e9a77a1687f312ff7.jpg" alt="Mojito">
+      <p>Mojito</p>
+    </div>
+    <div class="cocktail-card" onclick="showRecipe('martini')">
+      <img src="https://resize.elle.fr/original/var/plain_site/storage/images/elle-a-table/recettes-de-cuisine/martini-dry-2068016/21696942-3-fre-FR/Cocktail-Martini-dry.jpg" alt="Martini Dry">
+      <p>Martini Dry</p>
+    </div>
+    <div class="cocktail-card" onclick="showRecipe('pina_colada')">
+      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/06/Pina-Colada-002.jpg" alt="Piña Colada">
+      <p>Piña Colada</p>
+    </div>
+    <div class="cocktail-card" onclick="showRecipe('virgin_sunrise')">
+      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/05/Virgin-Tequila-Sunrise-002.jpg" alt="Virgin Sunrise">
+      <p>Virgin Sunrise</p>
+    </div>
+    <div class="cocktail-card" onclick="showRecipe('virgin_mojito')">
+      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/06/Virgin-Mojito-002.jpg" alt="Virgin Mojito">
+      <p>Virgin Mojito</p>
+    </div>
+    <div class="cocktail-card" onclick="showRecipe('daiquiri')">
+      <img src="https://www.acouplecooks.com/wp-content/uploads/2020/08/Daiquiri-006.jpg" alt="Daiquiri">
+      <p>Daiquiri</p>
+    </div>
+    <div class="cocktail-card" onclick="showRecipe('margarita')">
+      <img src="https://www.acouplecooks.com/wp-content/uploads/2021/02/Margarita-002.jpg" alt="Margarita">
+      <p>Margarita</p>
+    </div>
+  </aside>
+
+  <section class="craft-interface" id="craft-interface">
+    <h2 class="cocktail-title">Sélectionnez un cocktail</h2>
+
+    <div class="craft-top">
+      <div class="tools-section">
+        <h3>Outils nécessaires</h3>
+        <ul id="tools-list">
+          <li>–</li>
+        </ul>
+      </div>
+      <div class="ingredients-section">
+        <h3>Ingrédients</h3>
+        <ul id="ingredients-list">
+          <li>–</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="craft-steps">
+      <h3>Préparation</h3>
+      <ol id="steps-list">
+        <li>–</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2023 Barman Pro | Artisanat Mixologique</p>
+</footer>
+
+<script src="recette.js"></script>
+</body>
+</html>
