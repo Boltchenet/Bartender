@@ -8,9 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* =================== */
-        /* === VARIABLES ==== */
-        /* =================== */
         :root {
             --gold: #D4AF37;
             --dark-gold: #9E7C0C;
@@ -23,9 +20,6 @@
             --glow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
 
-        /* =================== */
-        /* === BASE ======== */
-        /* =================== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -52,9 +46,6 @@
             color: inherit;
         }
 
-        /* =================== */
-        /* === HEADER ====== */
-        /* =================== */
         .app-header {
             background-color: var(--darker-black);
             padding: 2rem 0;
@@ -114,15 +105,11 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* =================== */
-        /* === MAIN LAYOUT == */
-        /* =================== */
         .cocktails-app {
             display: flex;
             min-height: calc(100vh - 150px);
         }
 
-        /* Sidebar */
         .cocktails-sidebar {
             width: 350px;
             background-color: var(--darker-black);
@@ -139,17 +126,196 @@
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
         }
 
-        /* Détails du cocktail */
-        .cocktail-details {
-            flex: 1;
-            padding: 2rem;
-            background-color: var(--black);
-            overflow-y: auto;
+        .filters-section {
+            background: var(--darker-black);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* =================== */
-        /* === LISTE COCKTAILS === */
-        /* =================== */
+        .search-bar {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            background: var(--dark-gray);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            transition: all var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: var(--glow);
+        }
+
+        .search-bar::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.6;
+        }
+
+        .filter-button {
+            padding: 0.8rem 1.5rem;
+            background: var(--dark-gray);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .filter-button:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .active-filter {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .active-filter button {
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background: var(--dark-gray);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            transition: transform var(--transition);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-title {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--gold);
+        }
+
+        .filter-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-option input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--gold);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .modal-btn.apply {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .modal-btn.apply:hover {
+            background: var(--dark-gold);
+        }
+
         .cocktails-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -210,9 +376,6 @@
             opacity: 0.8;
         }
 
-        /* =================== */
-        /* === DÉTAILS COCKTAIL === */
-        /* =================== */
         .cocktail-header {
             display: flex;
             gap: 2rem;
@@ -312,11 +475,11 @@
             color: var(--light-gray);
             font-style: italic;
             opacity: 0.6;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
         }
 
-        /* =================== */
-        /* === RESPONSIVE === */
-        /* =================== */
         @media (max-width: 992px) {
             .cocktails-app {
                 flex-direction: column;
@@ -385,6 +548,21 @@
         <!-- Liste des cocktails -->
         <aside class="cocktails-sidebar">
             <h3 class="sidebar-title">Tous les cocktails</h3>
+            
+            <div class="filters-section">
+                <div class="search-bar">
+                    <input type="text" id="search-filter" placeholder="Rechercher un cocktail...">
+                </div>
+                
+                <button class="filter-button" id="open-filters">
+                    <span>Filtres</span>
+                </button>
+                
+                <div class="active-filters" id="active-filters">
+                    <!-- Les filtres actifs apparaîtront ici -->
+                </div>
+            </div>
+
             <div class="cocktails-list" id="cocktails-list">
                 <!-- Généré par JS -->
             </div>
@@ -425,214 +603,328 @@
         </section>
     </main>
 
+    <!-- Modal des filtres -->
+    <div class="modal-overlay" id="filters-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Filtrer les cocktails</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            
+            <div class="filter-options" id="filter-options">
+                <div class="filter-option">
+                    <input type="checkbox" id="filter-all" name="alcohol" value="all" checked>
+                    <label for="filter-all">Tous</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="filter-none" name="alcohol" value="non-alcoolise">
+                    <label for="filter-none">Sans alcool</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="filter-whisky" name="alcohol" value="whisky">
+                    <label for="filter-whisky">Whisky</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="filter-cointreau" name="alcohol" value="cointreau">
+                    <label for="filter-cointreau">Cointreau</label>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn apply" id="apply-filters">Appliquer</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Données des cocktails
-        const cocktailsData = [
+        const allCocktailsData = [
             {
-                id: "mojito",
-                name: "Mojito Classique",
-                category: "Cocktail rafraîchissant",
-                image: "https://www.liquor.com/thmb/MJRVqf-itJGY90nwUOYGXnyG-HA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mojito-720x720-primary-6a57f80e200c412e9a77a1687f312ff7.jpg",
+                id: "cointreau-sunrise",
+                name: "🌞 Cointreau Sunrise",
+                category: "Cocktail fruité sans alcool fort",
+                image: "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 ingredients: [
-                    "6 feuilles de menthe fraîche",
-                    "4 cl de rhum cubain",
-                    "2 cl de sirop de canne",
-                    "1/2 citron vert coupé",
-                    "Eau gazeuse",
-                    "Glace pilée"
-                ],
-                tools: [
-                    "Verre highball",
-                    "Pilon",
-                    "Cuillère à mélange"
-                ],
-                steps: [
-                    "Piler légèrement la menthe avec le sirop dans un verre",
-                    "Ajouter le citron coupé en morceaux",
-                    "Verser le rhum et remplir de glace pilée",
-                    "Compléter avec de l'eau gazeuse et mélanger délicatement",
-                    "Décorer avec une branche de menthe et une rondelle de citron"
-                ]
-            },
-            {
-                id: "martini",
-                name: "Martini Dry",
-                category: "Cocktail élégant",
-                image: "https://resize.elle.fr/original/var/plain_site/storage/images/elle-a-table/recettes-de-cuisine/martini-dry-2068016/21696942-3-fre-FR/Cocktail-Martini-dry.jpg",
-                ingredients: [
-                    "6 cl de gin premium",
-                    "1 cl de vermouth dry",
-                    "Zeste de citron ou olive"
-                ],
-                tools: [
-                    "Verre à martini",
-                    "Shaker",
-                    "Passoire fine",
-                    "Zesteuse"
-                ],
-                steps: [
-                    "Mélanger le gin et le vermouth avec des glaçons",
-                    "Remuer délicatement 30 secondes",
-                    "Filtrer dans un verre à cocktail refroidi",
-                    "Ajouter une olive ou un zeste de citron"
-                ]
-            },
-            {
-                id: "margarita",
-                name: "Margarita",
-                category: "Cocktail fruité",
-                image: "https://www.santospirits.com/wp-content/uploads/2024/01/velvet_kickstand_margarita.jpg",
-                ingredients: [
-                    "4 cl de tequila",
-                    "2 cl de triple sec",
-                    "2 cl de jus de citron vert",
-                    "Sel pour le bord du verre"
-                ],
-                tools: [
-                    "Shaker",
-                    "Verre à margarita",
-                    "Assiette pour le sel"
-                ],
-                steps: [
-                    "Givrer le bord du verre avec du citron vert et du sel",
-                    "Shaker tous les ingrédients avec des glaçons",
-                    "Verser dans le verre avec de la glace",
-                    "Décorer avec une tranche de citron vert"
-                ]
-            },
-            {
-                id: "pina-colada",
-                name: "Piña Colada",
-                category: "Cocktail tropical",
-                image: "https://assets.afcdn.com/recipe/20180605/79412_w1024h1024c1cx2000cy3000cxt0cyt0cxb4000cyb6000.jpg",
-                ingredients: [
-                    "4 cl de rhum blanc",
-                    "2 cl de crème de coco",
-                    "4 cl de jus d'ananas",
+                    "4 cl de Cointreau",
+                    "10 cl de jus d'orange ou jus de mangue (ou moitié-moitié)",
+                    "2 cl de sirop de grenadine",
                     "Glaçons"
                 ],
                 tools: [
-                    "Shaker",
-                    "Verre à cocktail",
-                    "Mixeur (optionnel)"
+                    "Boston shaker (le gros shaker en 2 parties)",
+                    "Jigger 30/15 (le doseur à 2 embouts)",
+                    "Cuillère à agiter",
+                    "Pince à glace",
+                    "Passoire Hawthorne (le filtre avec ressort)",
+                    "Support (juste pour poser tout au propre)"
                 ],
                 steps: [
-                    "Verser tous les ingrédients dans un shaker avec des glaçons",
-                    "Secouer énergiquement",
-                    "Filtrer et verser dans un verre à cocktail",
-                    "Décorer avec un morceau d'ananas ou une cerise"
+                    "Prépare ton verre : Choisis un verre long (type verre highball). Avec la pince à glace, mets 4-5 glaçons dedans pour le rafraîchir.",
+                    "Mesure le Cointreau : Utilise le jigger 30 ml pour verser 4 cl (soit 40 ml) de Cointreau dans le shaker.",
+                    "Ajoute le jus : Verse 10 cl de jus (orange, mangue ou mix) dans le shaker.",
+                    "Ajoute des glaçons dans le shaker : Avec la pince à glace, mets 4-5 glaçons dans le shaker.",
+                    "Shake le tout : Ferme bien ton Boston shaker et shake énergiquement pendant 10-15 secondes.",
+                    "Verse dans le verre : Enlève les glaçons du verre s'ils sont fondus. Place la passoire Hawthorne sur le shaker et verse doucement dans le verre.",
+                    "Effet sunrise : Verse tout doucement 2 cl de grenadine le long de la cuillère à agiter pour qu'elle tombe au fond et crée l'effet dégradé."
                 ]
             },
             {
-                id: "daiquiri",
-                name: "Daiquiri",
-                category: "Cocktail classique",
-                image: "https://www.liquor.com/thmb/ffYicPLJk00SWKg2shV67TPHV74=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Daiquiri_3000x3000_primary-206eb2330cb04852ab7d780dcf3d55ef.jpg",
+                id: "pink-sunset",
+                name: "🌸 Pink Sunset",
+                category: "Cocktail fruité et coloré",
+                image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 ingredients: [
-                    "4 cl de rhum blanc",
-                    "2 cl de jus de citron vert",
-                    "2 cl de sirop de sucre de canne",
+                    "2 cl de Cointreau",
+                    "6 cl de jus de cranberry",
+                    "6 cl de jus multifruits",
+                    "1 cl de grenadine",
                     "Glaçons"
                 ],
                 tools: [
-                    "Shaker",
-                    "Verre à cocktail"
+                    "Jigger 30/15",
+                    "Boston shaker",
+                    "Pince à glace",
+                    "Cuillère à agiter",
+                    "Passoire Hawthorne",
+                    "Verre long type tumbler ou highball"
                 ],
                 steps: [
-                    "Verser tous les ingrédients dans un shaker avec des glaçons",
-                    "Secouer vigoureusement",
-                    "Filtrer et verser dans un verre à cocktail"
+                    "Prépare ton verre : Remplis ton verre de glaçons avec la pince à glace, pour qu'il soit bien frais.",
+                    "Mesure les ingrédients dans le shaker : 2 cl de Cointreau, 6 cl de jus de cranberry, 6 cl de jus multifruits, 1 cl de grenadine.",
+                    "Ajoute des glaçons dans le shaker : Mets 4 à 5 glaçons avec la pince à glace dans le shaker.",
+                    "Shake le tout : Ferme bien ton Boston shaker et shake énergiquement pendant 10-15 secondes.",
+                    "Verse dans le verre : Vide les glaçons fondus du verre si besoin. Filtre avec la passoire Hawthorne et verse le contenu dans le verre.",
+                    "Finition (optionnelle) : Si tu veux renforcer l'effet visuel 'sunset', verse un mini trait de grenadine doucement le long de la cuillère à agiter."
                 ]
             },
             {
-                id: "cosmopolitan",
-                name: "Cosmopolitan",
-                category: "Cocktail sophistiqué",
-                image: "https://www.liquor.com/thmb/5wV9vG3QHXpQqWlXWqj1Vz9y0d8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/cosmopolitan-720x720-primary-7c1a8d2b5b8a4c3d9a2b5d5e5f5a5d5e.jpg",
+                id: "whisky-cooler-fruite",
+                name: "🥃 Whisky Cooler Fruité",
+                category: "Cocktail doux au whisky",
+                image: "https://images.unsplash.com/photo-1570598912132-0ba1dc952b7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 ingredients: [
-                    "4 cl de vodka citron",
-                    "2 cl de triple sec",
-                    "3 cl de jus de cranberry",
-                    "1 cl de jus de citron vert"
+                    "3 cl de Ballantine's (ou autre whisky doux)",
+                    "6 cl de jus multifruits",
+                    "1 cl de jus de citron jaune",
+                    "1 cl de sirop de grenadine",
+                    "Glaçons",
+                    "Optionnel : un trait d'eau gazeuse ou eau plate"
                 ],
                 tools: [
-                    "Shaker",
-                    "Verre à martini",
-                    "Passoire fine"
+                    "Jigger 30/15",
+                    "Boston shaker",
+                    "Pince à glace",
+                    "Cuillère à agiter",
+                    "Passoire Hawthorne"
                 ],
                 steps: [
-                    "Shaker tous les ingrédients avec des glaçons",
-                    "Filtrer dans un verre à martini refroidi",
-                    "Décorer avec un zeste d'orange"
+                    "Prépare ton verre : Remplis un verre type tumbler avec des glaçons pour le rafraîchir.",
+                    "Mesure les ingrédients dans le shaker : 3 cl de Ballantine's, 6 cl de jus multifruits, 1 cl de jus de citron jaune, 1 cl de sirop de grenadine.",
+                    "Ajoute des glaçons dans le shaker : Mets 4 à 5 glaçons à l'intérieur avec la pince à glace.",
+                    "Shake : Ferme le Boston shaker bien solidement et shake pendant 10-15 secondes.",
+                    "Verse et filtre : Retire les glaçons du verre si besoin. Place la passoire Hawthorne sur ton shaker et verse dans le verre.",
+                    "Option d'allègement : Si tu veux le rendre encore plus doux, ajoute un trait d'eau gazeuse ou plate."
                 ]
             },
             {
-                id: "negroni",
-                name: "Negroni",
-                category: "Apéritif italien",
-                image: "https://www.liquor.com/thmb/5wV9vG3QHXpQqWlXWqj1Vz9y0d8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/negroni-720x720-primary-7c1a8d2b5b8a4c3d9a2b5d5e5f5a5d5e.jpg",
-                ingredients: [
-                    "3 cl de gin",
-                    "3 cl de Campari",
-                    "3 cl de vermouth rouge",
-                    "Zeste d'orange"
-                ],
-                tools: [
-                    "Verre à mélange",
-                    "Cuillère à mélange",
-                    "Verre à rocks"
-                ],
-                steps: [
-                    "Verser tous les ingrédients dans un verre à mélange avec des glaçons",
-                    "Remuer délicatement",
-                    "Verser dans un verre à rocks avec de la glace",
-                    "Décorer avec un zeste d'orange"
-                ]
-            },
-            {
-                id: "old-fashioned",
-                name: "Old Fashioned",
-                category: "Cocktail classique",
-                image: "https://www.liquor.com/thmb/5wV9vG3QHXpQqWlXWqj1Vz9y0d8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/old-fashioned-720x720-primary-7c1a8d2b5b8a4c3d9a2b5d5e5f5a5d5e.jpg",
-                ingredients: [
-                    "5 cl de whisky bourbon",
-                    "1 morceau de sucre",
-                    "2 traits d'Angostura bitters",
-                    "Zeste d'orange"
-                ],
-                tools: [
-                    "Verre à rocks",
-                    "Pilon",
-                    "Cuillère à mélange"
-                ],
-                steps: [
-                    "Mélanger le sucre et les bitters dans le verre",
-                    "Ajouter un peu d'eau et bien mélanger",
-                    "Ajouter le whisky et des glaçons",
-                    "Remuer délicatement",
-                    "Décorer avec un zeste d'orange"
-                ]
-            }
+    id: "whisky-sour",
+    name: "🍋🥃 Whisky Sour",
+    category: "Cocktail classique au whisky",
+    image: "https://www.liquor.com/thmb/Oa3KjaP_udh0TYQO9ckm0dPS5PA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/whiskey-sour-1500x1500-hero-c9df509bb1d141f1a8424051c3d78445.jpg",
+    ingredients: [
+        "5 cl de whisky (bourbon conseillé)",
+        "2,5 cl de jus de citron frais",
+        "2 cl de sirop de sucre",
+        "(optionnel) 1 blanc d'œuf",
+        "Glaçons"
+    ],
+    tools: [
+        "Boston shaker (le gros shaker en 2 parties)",
+        "Jigger 30/15 (le doseur à 2 embouts)",
+        "Cuillère à agiter",
+        "Pince à glace",
+        "Passoire Hawthorne (le filtre avec ressort)",
+        "Support (juste pour poser tout au propre)"
+    ],
+    steps: [
+        "Prépare ton verre : Choisis un verre old fashioned (verre bas et large). Rafraîchis-le avec quelques glaçons grâce à la pince à glace.",
+        "Mesure le whisky : Utilise le jigger pour verser 5 cl de whisky dans le shaker.",
+        "Ajoute le citron : Verse 2,5 cl de jus de citron frais.",
+        "Ajoute le sirop : Mesure 2 cl de sirop de sucre et ajoute-le.",
+        "Ajoute un blanc d'œuf si tu veux une texture mousseuse : Cela rend le cocktail plus onctueux.",
+        "Shake à sec : Sans glaçons, shake vigoureusement pour bien mélanger (si tu as mis le blanc d'œuf).",
+        "Ajoute des glaçons dans le shaker : Mets-en 4 à 5 avec la pince à glace.",
+        "Shake à nouveau : Ferme bien ton shaker et secoue fort pendant 10-15 secondes.",
+        "Verse dans le verre : Retire les glaçons fondus du verre. Place la passoire Hawthorne sur le shaker et verse doucement le cocktail.",
+        "Décore : Ajoute une rondelle de citron ou une cerise au marasquin pour la touche finale."
+    ]
+}
         ];
 
         // Variables globales
         let currentCocktail = null;
+        const filters = {
+            search: '',
+            alcohol: ['all'] // Peut contenir plusieurs filtres
+        };
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', () => {
             loadCocktails();
             
+            // Écouteurs d'événements
+            document.getElementById('search-filter').addEventListener('input', (e) => {
+                filters.search = e.target.value.toLowerCase();
+                updateCocktailsDisplay();
+            });
+            
+            document.getElementById('open-filters').addEventListener('click', openFiltersModal);
+            document.getElementById('close-modal').addEventListener('click', closeFiltersModal);
+            document.getElementById('apply-filters').addEventListener('click', applyFilters);
+            
             // Sélectionner le premier cocktail par défaut
-            if (cocktailsData.length > 0) {
-                selectCocktail(cocktailsData[0].id);
+            if (allCocktailsData.length > 0) {
+                selectCocktail(allCocktailsData[0].id);
             }
         });
 
-        // Charger la liste des cocktails
-        function loadCocktails() {
-            const container = document.getElementById('cocktails-list');
+        // Ouvrir la modale des filtres
+        function openFiltersModal() {
+            document.getElementById('filters-modal').classList.add('active');
             
-            cocktailsData.forEach(cocktail => {
+            // Pré-sélectionner les filtres actifs
+            document.querySelectorAll('#filter-options input').forEach(input => {
+                input.checked = filters.alcohol.includes(input.value);
+            });
+        }
+
+        // Fermer la modale des filtres
+        function closeFiltersModal() {
+            document.getElementById('filters-modal').classList.remove('active');
+        }
+
+        // Appliquer les filtres
+        function applyFilters() {
+            const selectedFilters = [];
+            document.querySelectorAll('#filter-options input:checked').forEach(input => {
+                selectedFilters.push(input.value);
+            });
+            
+            // Si "Tous" est coché ou aucun filtre n'est sélectionné, on montre tout
+            if (selectedFilters.includes('all') || selectedFilters.length === 0) {
+                filters.alcohol = ['all'];
+            } else {
+                filters.alcohol = selectedFilters;
+            }
+            
+            updateActiveFiltersDisplay();
+            updateCocktailsDisplay();
+            closeFiltersModal();
+        }
+
+        // Afficher les filtres actifs
+        function updateActiveFiltersDisplay() {
+            const container = document.getElementById('active-filters');
+            container.innerHTML = '';
+            
+            if (filters.alcohol.includes('all') || filters.alcohol.length === 0) return;
+            
+            filters.alcohol.forEach(filter => {
+                const filterNames = {
+                    'non-alcoolise': 'Sans alcool',
+                    'whisky': 'Whisky',
+                    'cointreau': 'Cointreau'
+                };
+                
+                if (filterNames[filter]) {
+                    const el = document.createElement('div');
+                    el.className = 'active-filter';
+                    el.innerHTML = `
+                        <span>${filterNames[filter]}</span>
+                        <button data-filter="${filter}">&times;</button>
+                    `;
+                    container.appendChild(el);
+                }
+            });
+            
+            // Ajouter les événements pour supprimer les filtres
+            document.querySelectorAll('.active-filter button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const filterToRemove = e.target.dataset.filter;
+                    filters.alcohol = filters.alcohol.filter(f => f !== filterToRemove);
+                    
+                    // Si plus de filtres, on montre tout
+                    if (filters.alcohol.length === 0) {
+                        filters.alcohol = ['all'];
+                    }
+                    
+                    updateActiveFiltersDisplay();
+                    updateCocktailsDisplay();
+                });
+            });
+        }
+
+        // Filtrer les cocktails
+        function filterCocktails() {
+            return allCocktailsData.filter(cocktail => {
+                // Filtre par recherche
+                const searchMatch = 
+                    !filters.search ||
+                    cocktail.name.toLowerCase().includes(filters.search) ||
+                    cocktail.category.toLowerCase().includes(filters.search) ||
+                    cocktail.ingredients.some(ing => ing.toLowerCase().includes(filters.search));
+                
+                // Filtre par type d'alcool
+                if (filters.alcohol.includes('all')) {
+                    return searchMatch;
+                }
+                
+                let alcoholMatch = false;
+                
+                if (filters.alcohol.includes('non-alcoolise') && isNonAlcoholic(cocktail)) {
+                    alcoholMatch = true;
+                }
+                
+                if (filters.alcohol.includes('whisky') && containsWhisky(cocktail)) {
+                    alcoholMatch = true;
+                }
+                
+                if (filters.alcohol.includes('cointreau') && containsCointreau(cocktail)) {
+                    alcoholMatch = true;
+                }
+                
+                return searchMatch && alcoholMatch;
+            });
+        }
+
+        // Fonctions d'aide pour les filtres
+        function isNonAlcoholic(cocktail) {
+            const alcoholKeywords = ['whisky', 'vodka', 'gin', 'rhum', 'tequila', 'cointreau', 'alcool'];
+            return !cocktail.ingredients.some(ing => 
+                alcoholKeywords.some(keyword => ing.toLowerCase().includes(keyword)));
+        }
+
+        function containsWhisky(cocktail) {
+            return cocktail.ingredients.some(ing => 
+                ing.toLowerCase().includes('whisky') || ing.toLowerCase().includes('whiskey'));
+        }
+
+        function containsCointreau(cocktail) {
+            return cocktail.ingredients.some(ing => ing.toLowerCase().includes('cointreau'));
+        }
+
+        // Mettre à jour l'affichage des cocktails filtrés
+        function updateCocktailsDisplay() {
+            const filteredCocktails = filterCocktails();
+            const container = document.getElementById('cocktails-list');
+            container.innerHTML = '';
+            
+            if (filteredCocktails.length === 0) {
+                container.innerHTML = '<p class="empty-state">Aucun cocktail ne correspond à vos critères</p>';
+                return;
+            }
+            
+            filteredCocktails.forEach(cocktail => {
                 const card = document.createElement('div');
                 card.className = 'cocktail-card';
                 card.setAttribute('data-id', cocktail.id);
@@ -649,6 +941,17 @@
                     selectCocktail(cocktail.id);
                 });
             });
+            
+            // Si le cocktail actuel ne correspond plus aux filtres, le désélectionner
+            if (currentCocktail && !filteredCocktails.some(c => c.id === currentCocktail.id)) {
+                clearCocktailDetails();
+                currentCocktail = null;
+            }
+        }
+
+        // Charger les cocktails
+        function loadCocktails() {
+            updateCocktailsDisplay();
         }
 
         // Sélectionner un cocktail
@@ -662,7 +965,7 @@
             });
             
             // Trouver le cocktail
-            const cocktail = cocktailsData.find(c => c.id === cocktailId);
+            const cocktail = allCocktailsData.find(c => c.id === cocktailId);
             if (!cocktail) return;
             
             currentCocktail = cocktail;
@@ -708,6 +1011,17 @@
                 li.textContent = step;
                 stepsList.appendChild(li);
             });
+        }
+
+        // Effacer les détails du cocktail
+        function clearCocktailDetails() {
+            document.getElementById('cocktail-image').src = '';
+            document.getElementById('cocktail-image').alt = '';
+            document.getElementById('cocktail-name').textContent = 'Sélectionnez un cocktail';
+            document.getElementById('cocktail-category').textContent = '';
+            document.getElementById('ingredients-list').innerHTML = '<li class="empty-state">Aucun cocktail sélectionné</li>';
+            document.getElementById('tools-list').innerHTML = '<li class="empty-state">Aucun cocktail sélectionné</li>';
+            document.getElementById('recipe-steps').innerHTML = '<li class="empty-state">Aucun cocktail sélectionné</li>';
         }
     </script>
 </body>

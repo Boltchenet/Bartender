@@ -206,14 +206,77 @@
             overflow-y: auto;
         }
 
+        .sidebar-title {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .filters-section {
+            background: var(--darker-black);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .filter-button {
+            padding: 0.8rem 1.5rem;
+            background: var(--dark-gray);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .filter-button:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .active-filter {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .active-filter button {
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            cursor: pointer;
+        }
+
         .recipes-list {
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
-            margin-top: 1.5rem;
         }
 
         .recipe-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             background: rgba(30, 30, 30, 0.5);
             padding: 1rem;
             border-radius: 6px;
@@ -226,6 +289,25 @@
             background: rgba(40, 40, 40, 0.7);
             transform: translateX(5px);
             border-left-color: var(--gold);
+        }
+
+        .recipe-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            filter: brightness(0.9);
+            transition: filter var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .recipe-item:hover .recipe-image {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .recipe-text {
+            flex: 1;
         }
 
         .recipe-item h4 {
@@ -311,10 +393,37 @@
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
+        .command-title-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .command-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            filter: brightness(0.95);
+            transition: all var(--transition);
+        }
+
+        .command-card:hover .command-image {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
         .command-name {
             color: var(--gold);
             font-size: 1.3rem;
             font-family: 'Montserrat', sans-serif;
+        }
+
+        .command-recipe-name {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
         }
 
         .command-actions {
@@ -323,14 +432,14 @@
         }
 
         .command-btn {
-            padding: 0.3rem 0.6rem;
+            padding: 0.5rem 1rem;
             background: transparent;
             border: 1px solid var(--gold);
             border-radius: 4px;
             color: var(--gold);
             cursor: pointer;
             transition: all var(--transition);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
 
         .command-btn:hover {
@@ -553,6 +662,26 @@
             box-shadow: var(--glow);
         }
 
+        /* Filtres modal */
+        .filter-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-option input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--gold);
+        }
+
         /* =================== */
         /* === RESPONSIVE === */
         /* =================== */
@@ -581,6 +710,24 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .command-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .command-title-container {
+                width: 100%;
+            }
+            
+            .command-actions {
+                width: 100%;
+                justify-content: flex-end;
+                margin-top: 1rem;
+            }
+        }
+
         @media (max-width: 576px) {
             .logo {
                 font-size: 3rem;
@@ -590,14 +737,14 @@
                 font-size: 1rem;
             }
             
-            .command-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+            .command-image {
+                width: 80px;
+                height: 80px;
             }
             
-            .command-actions {
-                align-self: flex-end;
+            .recipe-image {
+                width: 60px;
+                height: 60px;
             }
         }
     </style>
@@ -633,6 +780,17 @@
             <!-- Section des recettes -->
             <aside class="recipes-section" id="recipes-section">
                 <h3 class="sidebar-title">Recettes disponibles</h3>
+                
+                <div class="filters-section">
+                    <button class="filter-button" id="open-filters">
+                        <span>Filtres</span>
+                    </button>
+                    
+                    <div class="active-filters" id="active-filters">
+                        <!-- Les filtres actifs apparaîtront ici -->
+                    </div>
+                </div>
+                
                 <div class="recipes-list" id="recipes-list">
                     <!-- Généré par JS -->
                 </div>
@@ -690,6 +848,39 @@
         </div>
     </div>
 
+    <!-- Modal des filtres -->
+    <div class="modal-overlay" id="filters-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Filtrer les recettes</h3>
+                <button class="close-modal" id="close-filters-modal">&times;</button>
+            </div>
+            
+            <div class="filter-options" id="filter-options">
+                <div class="filter-option">
+                    <input type="checkbox" id="filter-all" name="alcohol" value="all" checked>
+                    <label for="filter-all">Toutes</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="filter-none" name="alcohol" value="non-alcoolise">
+                    <label for="filter-none">Sans alcool</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="filter-whisky" name="alcohol" value="whisky">
+                    <label for="filter-whisky">Whisky</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="filter-cointreau" name="alcohol" value="cointreau">
+                    <label for="filter-cointreau">Cointreau</label>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn save" id="apply-filters">Appliquer</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Données des recettes
         const recipesData = [
@@ -697,6 +888,7 @@
                 id: "cointreau-sunrise",
                 name: "🌞 Cointreau Sunrise",
                 type: "Cocktail fruité sans alcool fort",
+                image: "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 ingredients: [
                     "4 cl de Cointreau",
                     "10 cl de jus d'orange ou jus de mangue (ou moitié-moitié)",
@@ -725,6 +917,7 @@
                 id: "pink-sunset",
                 name: "🌸 Pink Sunset",
                 type: "Cocktail fruité et coloré",
+                image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 ingredients: [
                     "2 cl de Cointreau",
                     "6 cl de jus de cranberry",
@@ -753,6 +946,7 @@
                 id: "whisky-cooler-fruite",
                 name: "🥃 Whisky Cooler Fruité",
                 type: "Cocktail doux au whisky",
+                image: "https://images.unsplash.com/photo-1570598912132-0ba1dc952b7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 ingredients: [
                     "3 cl de Ballantine's (ou autre whisky doux)",
                     "6 cl de jus multifruits",
@@ -776,11 +970,50 @@
                     "Verse et filtre : Retire les glaçons du verre si besoin. Place la passoire Hawthorne sur ton shaker et verse dans le verre.",
                     "Option d'allègement : Si tu veux le rendre encore plus doux, ajoute un trait d'eau gazeuse ou plate."
                 ]
+            },
+            {
+                id: "whisky-sour",
+                name: "🍋🥃 Whisky Sour",
+                type: "Cocktail classique au whisky",
+                image: "https://www.liquor.com/thmb/Oa3KjaP_udh0TYQO9ckm0dPS5PA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/whiskey-sour-1500x1500-hero-c9df509bb1d141f1a8424051c3d78445.jpg",
+                ingredients: [
+                    "5 cl de whisky (bourbon conseillé)",
+                    "2,5 cl de jus de citron frais",
+                    "2 cl de sirop de sucre",
+                    "(optionnel) 1 blanc d'œuf",
+                    "Glaçons"
+                ],
+                tools: [
+                    "Boston shaker (le gros shaker en 2 parties)",
+                    "Jigger 30/15 (le doseur à 2 embouts)",
+                    "Cuillère à agiter",
+                    "Pince à glace",
+                    "Passoire Hawthorne (le filtre avec ressort)",
+                    "Support (juste pour poser tout au propre)"
+                ],
+                steps: [
+                    "Prépare ton verre : Choisis un verre old fashioned (verre bas et large). Rafraîchis-le avec quelques glaçons grâce à la pince à glace.",
+                    "Mesure le whisky : Utilise le jigger pour verser 5 cl de whisky dans le shaker.",
+                    "Ajoute le citron : Verse 2,5 cl de jus de citron frais.",
+                    "Ajoute le sirop : Mesure 2 cl de sirop de sucre et ajoute-le.",
+                    "Ajoute un blanc d'œuf si tu veux une texture mousseuse : Cela rend le cocktail plus onctueux.",
+                    "Shake à sec : Sans glaçons, shake vigoureusement pour bien mélanger (si tu as mis le blanc d'œuf).",
+                    "Ajoute des glaçons dans le shaker : Mets-en 4 à 5 avec la pince à glace.",
+                    "Shake à nouveau : Ferme bien ton shaker et secoue fort pendant 10-15 secondes.",
+                    "Verse dans le verre : Retire les glaçons fondus du verre. Place la passoire Hawthorne sur le shaker et verse doucement le cocktail.",
+                    "Décore : Ajoute une rondelle de citron ou une cerise au marasquin pour la touche finale."
+                ]
             }
         ];
 
         // Données des commandes (stockage local)
         let commandsData = JSON.parse(localStorage.getItem('commands')) || [];
+
+        // Filtres
+        const filters = {
+            search: '',
+            alcohol: ['all'] // Peut contenir plusieurs filtres
+        };
 
         // Éléments du DOM
         const recipesList = document.getElementById('recipes-list');
@@ -793,6 +1026,11 @@
         const cancelCommandBtn = document.getElementById('cancel-command');
         const commandForm = document.getElementById('command-form');
         const commandRecipeSelect = document.getElementById('command-recipe');
+        const openFiltersBtn = document.getElementById('open-filters');
+        const filtersModal = document.getElementById('filters-modal');
+        const closeFiltersModalBtn = document.getElementById('close-filters-modal');
+        const applyFiltersBtn = document.getElementById('apply-filters');
+        const activeFiltersContainer = document.getElementById('active-filters');
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', () => {
@@ -804,20 +1042,58 @@
             closeModalBtn.addEventListener('click', closeCommandModal);
             cancelCommandBtn.addEventListener('click', closeCommandModal);
             commandForm.addEventListener('submit', saveCommand);
-            searchInput.addEventListener('input', filterRecipes);
+            searchInput.addEventListener('input', filterRecipesBySearch);
+            
+            // Filtres
+            openFiltersBtn.addEventListener('click', openFiltersModal);
+            closeFiltersModalBtn.addEventListener('click', closeFiltersModal);
+            applyFiltersBtn.addEventListener('click', applyFilters);
+            
+            // Ajout de l'écouteur pour la prévisualisation de l'image
+            commandRecipeSelect.addEventListener('change', function() {
+                const selectedRecipeId = this.value;
+                const recipe = recipesData.find(r => r.id === selectedRecipeId);
+                if (recipe) {
+                    const preview = document.getElementById('recipe-preview');
+                    if (!preview) {
+                        const previewDiv = document.createElement('div');
+                        previewDiv.id = 'recipe-preview';
+                        previewDiv.style.marginTop = '1rem';
+                        previewDiv.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; border-radius: 6px; max-height: 150px;">`;
+                        this.parentNode.appendChild(previewDiv);
+                    } else {
+                        preview.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; border-radius: 6px; max-height: 150px;">`;
+                    }
+                } else {
+                    const preview = document.getElementById('recipe-preview');
+                    if (preview) {
+                        preview.remove();
+                    }
+                }
+            });
         });
 
         // Charger les recettes
         function loadRecipes() {
             recipesList.innerHTML = '';
             
-            recipesData.forEach(recipe => {
+            const filteredRecipes = filterRecipes();
+            
+            if (filteredRecipes.length === 0) {
+                recipesList.innerHTML = '<p class="empty-state">Aucune recette ne correspond à vos critères</p>';
+                return;
+            }
+            
+            filteredRecipes.forEach(recipe => {
                 const item = document.createElement('div');
                 item.className = 'recipe-item';
                 item.setAttribute('data-id', recipe.id);
                 item.innerHTML = `
-                    <h4>${recipe.name}</h4>
-                    <p>${recipe.type}</p>
+                    <img src="${recipe.image}" alt="${recipe.name}" class="recipe-image">
+                    <div class="recipe-text">
+                        <h4>${recipe.name}</h4>
+                        <p>${recipe.type}</p>
+                    </div>
                 `;
                 recipesList.appendChild(item);
                 
@@ -829,6 +1105,136 @@
                 
                 item.addEventListener('click', () => {
                     createCommandFromRecipe(recipe.id);
+                });
+            });
+        }
+
+        // Filtrer les recettes
+        function filterRecipes() {
+            return recipesData.filter(recipe => {
+                // Filtre par recherche
+                const searchMatch = 
+                    !filters.search ||
+                    recipe.name.toLowerCase().includes(filters.search) ||
+                    recipe.type.toLowerCase().includes(filters.search) ||
+                    recipe.ingredients.some(ing => ing.toLowerCase().includes(filters.search));
+                
+                // Filtre par type d'alcool
+                if (filters.alcohol.includes('all')) {
+                    return searchMatch;
+                }
+                
+                let alcoholMatch = false;
+                
+                if (filters.alcohol.includes('non-alcoolise') && isNonAlcoholic(recipe)) {
+                    alcoholMatch = true;
+                }
+                
+                if (filters.alcohol.includes('whisky') && containsWhisky(recipe)) {
+                    alcoholMatch = true;
+                }
+                
+                if (filters.alcohol.includes('cointreau') && containsCointreau(recipe)) {
+                    alcoholMatch = true;
+                }
+                
+                return searchMatch && alcoholMatch;
+            });
+        }
+
+        // Fonctions d'aide pour les filtres
+        function isNonAlcoholic(recipe) {
+            const alcoholKeywords = ['whisky', 'vodka', 'gin', 'rhum', 'tequila', 'cointreau', 'alcool'];
+            return !recipe.ingredients.some(ing => 
+                alcoholKeywords.some(keyword => ing.toLowerCase().includes(keyword)));
+        }
+
+        function containsWhisky(recipe) {
+            return recipe.ingredients.some(ing => 
+                ing.toLowerCase().includes('whisky') || ing.toLowerCase().includes('whiskey'));
+        }
+
+        function containsCointreau(recipe) {
+            return recipe.ingredients.some(ing => ing.toLowerCase().includes('cointreau'));
+        }
+
+        // Filtrer les recettes par recherche
+        function filterRecipesBySearch() {
+            filters.search = searchInput.value.toLowerCase();
+            loadRecipes();
+        }
+
+        // Ouvrir le modal des filtres
+        function openFiltersModal() {
+            filtersModal.classList.add('active');
+            
+            // Pré-sélectionner les filtres actifs
+            document.querySelectorAll('#filter-options input').forEach(input => {
+                input.checked = filters.alcohol.includes(input.value);
+            });
+        }
+
+        // Fermer le modal des filtres
+        function closeFiltersModal() {
+            filtersModal.classList.remove('active');
+        }
+
+        // Appliquer les filtres
+        function applyFilters() {
+            const selectedFilters = [];
+            document.querySelectorAll('#filter-options input:checked').forEach(input => {
+                selectedFilters.push(input.value);
+            });
+            
+            // Si "Tous" est coché ou aucun filtre n'est sélectionné, on montre tout
+            if (selectedFilters.includes('all') || selectedFilters.length === 0) {
+                filters.alcohol = ['all'];
+            } else {
+                filters.alcohol = selectedFilters;
+            }
+            
+            updateActiveFiltersDisplay();
+            loadRecipes();
+            closeFiltersModal();
+        }
+
+        // Afficher les filtres actifs
+        function updateActiveFiltersDisplay() {
+            activeFiltersContainer.innerHTML = '';
+            
+            if (filters.alcohol.includes('all') || filters.alcohol.length === 0) return;
+            
+            filters.alcohol.forEach(filter => {
+                const filterNames = {
+                    'non-alcoolise': 'Sans alcool',
+                    'whisky': 'Whisky',
+                    'cointreau': 'Cointreau'
+                };
+                
+                if (filterNames[filter]) {
+                    const el = document.createElement('div');
+                    el.className = 'active-filter';
+                    el.innerHTML = `
+                        <span>${filterNames[filter]}</span>
+                        <button data-filter="${filter}">&times;</button>
+                    `;
+                    activeFiltersContainer.appendChild(el);
+                }
+            });
+            
+            // Ajouter les événements pour supprimer les filtres
+            document.querySelectorAll('.active-filter button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const filterToRemove = e.target.dataset.filter;
+                    filters.alcohol = filters.alcohol.filter(f => f !== filterToRemove);
+                    
+                    // Si plus de filtres, on montre tout
+                    if (filters.alcohol.length === 0) {
+                        filters.alcohol = ['all'];
+                    }
+                    
+                    updateActiveFiltersDisplay();
+                    loadRecipes();
                 });
             });
         }
@@ -850,17 +1256,19 @@
                 commandEl.className = 'command-card';
                 commandEl.innerHTML = `
                     <div class="command-header">
-                        <h4 class="command-name">${command.name}</h4>
+                        <div class="command-title-container">
+                            <img src="${recipe.image}" alt="${recipe.name}" class="command-image">
+                            <div>
+                                <h4 class="command-name">${command.name}</h4>
+                                <p class="command-recipe-name">${recipe.name}</p>
+                            </div>
+                        </div>
                         <div class="command-actions">
                             <button class="command-btn validate" data-index="${index}">Validée</button>
                             <button class="command-btn delete" data-index="${index}">Supprimer</button>
                         </div>
                     </div>
                     <div class="command-details">
-                        <div class="command-recipe">
-                            <h4>${recipe.name}</h4>
-                            <p>${recipe.type}</p>
-                        </div>
                         ${command.notes ? `<p><strong>Notes:</strong> ${command.notes}</p>` : ''}
                         <div class="command-steps">
                             <h4>Étapes de préparation:</h4>
@@ -871,34 +1279,18 @@
                     </div>
                 `;
                 commandsList.appendChild(commandEl);
-            });
-            
-            // Ajouter les événements aux boutons
-            document.querySelectorAll('.command-btn.delete').forEach(btn => {
-                btn.addEventListener('click', (e) => {
+                
+                // Ajouter les événements aux boutons
+                const deleteBtn = commandEl.querySelector('.command-btn.delete');
+                const validateBtn = commandEl.querySelector('.command-btn.validate');
+                
+                deleteBtn.addEventListener('click', (e) => {
                     deleteCommand(parseInt(e.target.dataset.index));
                 });
-            });
-            
-            document.querySelectorAll('.command-btn.validate').forEach(btn => {
-                btn.addEventListener('click', (e) => {
+                
+                validateBtn.addEventListener('click', (e) => {
                     validateCommand(parseInt(e.target.dataset.index));
                 });
-            });
-        }
-
-        // Filtrer les recettes
-        function filterRecipes() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const recipeItems = document.querySelectorAll('.recipe-item');
-            
-            recipeItems.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
             });
         }
 
@@ -912,6 +1304,10 @@
         function closeCommandModal() {
             commandModal.classList.remove('active');
             commandForm.reset();
+            const preview = document.getElementById('recipe-preview');
+            if (preview) {
+                preview.remove();
+            }
         }
 
         // Créer une commande à partir d'une recette
@@ -922,6 +1318,18 @@
             // Pré-remplir le formulaire
             document.getElementById('command-name').value = `Nouvelle ${recipe.name}`;
             document.getElementById('command-recipe').value = recipeId;
+            
+            // Mettre à jour la prévisualisation
+            const preview = document.getElementById('recipe-preview');
+            if (!preview) {
+                const previewDiv = document.createElement('div');
+                previewDiv.id = 'recipe-preview';
+                previewDiv.style.marginTop = '1rem';
+                previewDiv.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; border-radius: 6px; max-height: 150px;">`;
+                commandRecipeSelect.parentNode.appendChild(previewDiv);
+            } else {
+                preview.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; border-radius: 6px; max-height: 150px;">`;
+            }
             
             // Ouvrir le modal
             openCommandModal();
