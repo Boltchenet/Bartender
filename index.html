@@ -1,18 +1,170 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barman Pro</title>
+    <title>Barman Pro - L'Art Noir du Mixologie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Nouveau style pour la section commande avec deux images */
+        /* =================== */
+        /* === VARIABLES ==== */
+        /* =================== */
+        :root {
+            --gold: #D4AF37;
+            --dark-gold: #9E7C0C;
+            --black: #0A0A0A;
+            --darker-black: #050505;
+            --dark-gray: #1A1A1A;
+            --light-gray: #E5E5E5;
+            --white: #F0F0F0;
+            --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --glow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* =================== */
+        /* === BASE ======== */
+        /* =================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            background-color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Parisienne', cursive;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =================== */
+        /* === HEADER ====== */
+        /* =================== */
+        .main-header {
+            background-color: transparent;
+            padding: 1.5rem 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .main-header.scrolled {
+            background-color: rgba(10, 10, 10, 0.9);
+            padding: 1rem 0;
+            box-shadow: var(--glow);
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo {
+            font-size: 5rem;
+            color: var(--gold);
+            margin: 0;
+            text-transform: none;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            position: relative;
+            z-index: 2;
+            transition: all var(--transition);
+            font-weight: 400;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110%;
+            height: 110%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0;
+            transition: all var(--transition);
+        }
+
+        .logo-container:hover .logo {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .logo-container:hover .logo::after {
+            opacity: 1;
+        }
+
+        .slogan {
+            color: var(--light-gray);
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-top: -0.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            opacity: 0.8;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* =================== */
+        /* === SECTIONS ==== */
+        /* =================== */
+        .hero-section {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(5, 5, 5, 0.7) 0%, rgba(5, 5, 5, 0.4) 100%);
+            z-index: 1;
+        }
+
+        #recipes-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                              url('https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80&sat=-30');
+            background-attachment: fixed;
+            filter: brightness(1.3);
+        }
+
+        #profiles-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                              url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80&sat=-30');
+            background-attachment: fixed;
+            filter: brightness(1.3);
+        }
+
+        /* Style spécial pour la section commande avec deux images */
         #order-hero {
-            background-image: none;
+            background-image: none !important;
             position: relative;
             overflow: hidden;
         }
@@ -24,10 +176,13 @@
             left: 0;
             width: 50%;
             height: 100%;
-            background-image: url('https://www.ehonline.eu/wp-content/uploads/2018/11/alcohol-bar-beer-min-scaled.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                              url('https://www.ehonline.eu/wp-content/uploads/2018/11/alcohol-bar-beer-min-scaled.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             z-index: 1;
+            filter: brightness(0.9) contrast(1.2);
         }
         
         #order-hero::after {
@@ -37,49 +192,161 @@
             right: 0;
             width: 50%;
             height: 100%;
-            background-image: url('https://offloadmedia.feverup.com/marseillesecrete.com/wp-content/uploads/2023/09/13122219/meilleurs-bars-Marseille.png');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                              url('https://offloadmedia.feverup.com/marseillesecrete.com/wp-content/uploads/2023/09/13122219/meilleurs-bars-Marseille.png');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             z-index: 1;
+            filter: brightness(0.9) contrast(1.2);
         }
         
         #order-hero .section-content {
             position: relative;
             z-index: 3;
         }
-        
-        /* Séparateur stylé */
-        .bar-separator {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            height: 80%;
-            width: 2px;
-            background: var(--gold);
+
+        .hero-content, .section-content {
+            position: relative;
             z-index: 2;
-            box-shadow: 0 0 10px var(--gold);
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            color: var(--white);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s var(--transition) forwards;
         }
-        
-        .bar-separator::before,
-        .bar-separator::after {
+
+        .hero-content h2, .section-content h2 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p, .section-content p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        /* =================== */
+        /* === BOUTONS ===== */
+        /* =================== */
+        .gold-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            font-size: 1.1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-radius: 50px;
+            box-shadow: var(--glow);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .gold-button::before {
             content: '';
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            background: rgba(0,0,0,0.5);
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: all 0.8s ease;
         }
-        
-        .bar-separator::before {
-            top: -40px;
+
+        .gold-button:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--white);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
         }
-        
-        .bar-separator::after {
-            bottom: -40px;
+
+        .gold-button:hover::before {
+            left: 100%;
+        }
+
+        /* =================== */
+        /* === FOOTER ====== */
+        /* =================== */
+        footer {
+            background-color: var(--darker-black);
+            color: var(--light-gray);
+            text-align: center;
+            padding: 3rem 2rem;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* =================== */
+        /* === ANIMATIONS === */
+        /* =================== */
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* =================== */
+        /* === RESPONSIVE === */
+        /* =================== */
+        @media (max-width: 1024px) {
+            .logo {
+                font-size: 3.5rem;
+            }
+
+            .hero-content h2, .section-content h2 {
+                font-size: 3rem;
+            }
+
+            /* Adaptation pour la section commande en mobile */
+            #order-hero::before, 
+            #order-hero::after {
+                width: 100%;
+                height: 50%;
+            }
+
+            #order-hero::before {
+                top: 0;
+                left: 0;
+            }
+
+            #order-hero::after {
+                top: 50%;
+                left: 0;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+
+            .hero-content h2, .section-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p, .section-content p {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -90,7 +357,7 @@
             <a href="index.html">
                 <h1 class="logo">Barman</h1>
             </a>
-            <p class="slogan">L'art du cocktail à portée de main</p>
+            <p class="slogan">L'art noir du mixologie</p>
         </div>
     </header>
 
@@ -104,7 +371,7 @@
     </section>
 
     <!-- Section Profils avec bars -->
-    <section class="profiles-section" id="profiles-hero">
+    <section class="hero-section" id="profiles-hero">
         <div class="section-content">
             <h2>Vos Établissements</h2>
             <p>Gérez les préférences de chaque bar ou restaurant</p>
@@ -113,8 +380,7 @@
     </section>
 
     <!-- Section Commande avec barman -->
-    <section class="order-section" id="order-hero">
-        <div class="bar-separator"></div>
+    <section class="hero-section" id="order-hero">
         <div class="section-content">
             <h2>Service au Bar</h2>
             <p>Gérez vos commandes et préparation en temps réel</p>
@@ -123,9 +389,19 @@
     </section>
 
     <footer>
-        <p>© 2023 Barman Pro | Artisanat Mixologique</p>
+        <p>© 2023 Barman Pro | Artisanat Mixologique Obscur</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>

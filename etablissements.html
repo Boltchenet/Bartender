@@ -6,13 +6,450 @@
     <title>Établissements - Barman Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="establishments.css">
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* =================== */
+        /* === VARIABLES ==== */
+        /* =================== */
+        :root {
+            --gold: #D4AF37;
+            --dark-gold: #9E7C0C;
+            --black: #0A0A0A;
+            --darker-black: #050505;
+            --dark-gray: #1A1A1A;
+            --light-gray: #E5E5E5;
+            --white: #F0F0F0;
+            --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --glow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* =================== */
+        /* === BASE ======== */
+        /* =================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            background-color: var(--black);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Parisienne', cursive;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =================== */
+        /* === HEADER ====== */
+        /* =================== */
+        .app-header {
+            background-color: var(--darker-black);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo {
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin: 0;
+            text-transform: none;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            position: relative;
+            z-index: 2;
+            transition: all var(--transition);
+            font-weight: 400;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110%;
+            height: 110%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0;
+            transition: all var(--transition);
+        }
+
+        .logo-container:hover .logo {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .logo-container:hover .logo::after {
+            opacity: 1;
+        }
+
+        .slogan {
+            color: var(--light-gray);
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-top: -0.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            opacity: 0.8;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* =================== */
+        /* === MAIN LAYOUT == */
+        /* =================== */
+        .establishments-app {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Barre des établissements */
+        .establishments-bar {
+            background-color: var(--darker-black);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .section-title {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .establishments-container {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--darker-black);
+        }
+
+        .establishments-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .establishments-container::-webkit-scrollbar-track {
+            background: var(--darker-black);
+        }
+
+        .establishments-container::-webkit-scrollbar-thumb {
+            background-color: var(--gold);
+            border-radius: 4px;
+        }
+
+        /* Contenu principal */
+        .main-content {
+            display: flex;
+            flex: 1;
+        }
+
+        /* Sidebar */
+        .cocktails-sidebar {
+            width: 300px;
+            background-color: var(--darker-black);
+            padding: 2rem;
+            border-right: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .sidebar-title {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Détails du cocktail */
+        .cocktail-details {
+            flex: 1;
+            padding: 2rem;
+            background-color: var(--black);
+        }
+
+        /* =================== */
+        /* === CARTES ====== */
+        /* =================== */
+        .establishment-card {
+            min-width: 250px;
+            background: var(--dark-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .establishment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), var(--glow);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .establishment-card.active {
+            border: 1px solid var(--gold);
+            box-shadow: var(--glow);
+        }
+
+        .establishment-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            filter: brightness(0.9);
+            transition: filter var(--transition);
+        }
+
+        .establishment-card:hover .establishment-img {
+            filter: brightness(1.1);
+        }
+
+        .establishment-info {
+            padding: 1.5rem;
+        }
+
+        .establishment-name {
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .establishment-location {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            opacity: 0.8;
+        }
+
+        /* Liste des cocktails */
+        .cocktails-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .cocktail-item {
+            background: rgba(30, 30, 30, 0.5);
+            padding: 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .cocktail-item:hover {
+            background: rgba(40, 40, 40, 0.7);
+            transform: translateX(5px);
+            border-left-color: var(--gold);
+        }
+
+        .cocktail-item.active {
+            background: rgba(212, 175, 55, 0.1);
+            border-left-color: var(--gold);
+        }
+
+        .cocktail-item h4 {
+            margin-bottom: 0.3rem;
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .cocktail-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Détails du cocktail */
+        .cocktail-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .cocktail-image {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            filter: brightness(0.95);
+            transition: all var(--transition);
+        }
+
+        .cocktail-image:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .cocktail-info h2 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+
+        .cocktail-type {
+            font-style: italic;
+            color: var(--light-gray);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .cocktail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .ingredients-section, 
+        .tools-section, 
+        .recipe-section {
+            background: var(--dark-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .recipe-section {
+            grid-column: span 2;
+        }
+
+        .ingredients-section h3, 
+        .tools-section h3, 
+        .recipe-section h3 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        li::before {
+            content: '•';
+            color: var(--gold);
+            position: absolute;
+            left: -1rem;
+        }
+
+        ol li {
+            counter-increment: step-counter;
+            margin-bottom: 1rem;
+        }
+
+        ol li::before {
+            content: counter(step-counter);
+            color: var(--gold);
+            position: absolute;
+            left: -1.8rem;
+            top: -0.1rem;
+            font-size: 0.9rem;
+        }
+
+        .empty-state {
+            color: var(--light-gray);
+            font-style: italic;
+            opacity: 0.6;
+        }
+
+        /* =================== */
+        /* === RESPONSIVE === */
+        /* =================== */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .cocktails-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+            
+            .cocktail-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cocktail-image {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
+            }
+            
+            .cocktail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .recipe-section {
+                grid-column: span 1;
+            }
+
+            .logo {
+                font-size: 3.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .establishment-card {
+                min-width: 200px;
+            }
+            
+            .establishment-img {
+                height: 120px;
+            }
+
+            .logo {
+                font-size: 2.8rem;
+            }
+
+            .slogan {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="app-header">
         <div class="logo-container">
-            <h1 class="logo">Barman Pro</h1>
+            <a href="index.html">
+                <h1 class="logo">Barman</h1>
+            </a>
             <p class="slogan">Gestion des établissements</p>
         </div>
     </header>
@@ -72,6 +509,279 @@
         </div>
     </main>
 
-    <script src="etablissements.js"></script>
+    <script>
+        // Données des établissements
+        const establishmentsData = [
+            {
+                id: "maison",
+                name: "Maison",
+                location: "Votre domicile",
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                cocktails: [
+                    {
+                        id: "cointreau-sunrise",
+                        name: "🌞 Cointreau Sunrise",
+                        type: "Cocktail fruité sans alcool fort",
+                        image: "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                        ingredients: [
+                            "4 cl de Cointreau",
+                            "10 cl de jus d'orange ou jus de mangue (ou moitié-moitié)",
+                            "2 cl de sirop de grenadine",
+                            "Glaçons"
+                        ],
+                        tools: [
+                            "Boston shaker (le gros shaker en 2 parties)",
+                            "Jigger 30/15 (le doseur à 2 embouts)",
+                            "Cuillère à agiter",
+                            "Pince à glace",
+                            "Passoire Hawthorne (le filtre avec ressort)",
+                            "Support (juste pour poser tout au propre)"
+                        ],
+                        steps: [
+                            "Prépare ton verre : Choisis un verre long (type verre highball). Avec la pince à glace, mets 4-5 glaçons dedans pour le rafraîchir.",
+                            "Mesure le Cointreau : Utilise le jigger 30 ml pour verser 4 cl (soit 40 ml) de Cointreau dans le shaker.",
+                            "Ajoute le jus : Verse 10 cl de jus (orange, mangue ou mix) dans le shaker.",
+                            "Ajoute des glaçons dans le shaker : Avec la pince à glace, mets 4-5 glaçons dans le shaker.",
+                            "Shake le tout : Ferme bien ton Boston shaker et shake énergiquement pendant 10-15 secondes.",
+                            "Verse dans le verre : Enlève les glaçons du verre s'ils sont fondus. Place la passoire Hawthorne sur le shaker et verse doucement dans le verre.",
+                            "Effet sunrise : Verse tout doucement 2 cl de grenadine le long de la cuillère à agiter pour qu'elle tombe au fond et crée l'effet dégradé."
+                        ]
+                    },
+                    {
+                        id: "pink-sunset",
+                        name: "🌸 Pink Sunset",
+                        type: "Cocktail fruité et coloré",
+                        image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                        ingredients: [
+                            "2 cl de Cointreau",
+                            "6 cl de jus de cranberry",
+                            "6 cl de jus multifruits",
+                            "1 cl de grenadine",
+                            "Glaçons"
+                        ],
+                        tools: [
+                            "Jigger 30/15",
+                            "Boston shaker",
+                            "Pince à glace",
+                            "Cuillère à agiter",
+                            "Passoire Hawthorne",
+                            "Verre long type tumbler ou highball"
+                        ],
+                        steps: [
+                            "Prépare ton verre : Remplis ton verre de glaçons avec la pince à glace, pour qu'il soit bien frais.",
+                            "Mesure les ingrédients dans le shaker : 2 cl de Cointreau, 6 cl de jus de cranberry, 6 cl de jus multifruits, 1 cl de grenadine.",
+                            "Ajoute des glaçons dans le shaker : Mets 4 à 5 glaçons avec la pince à glace dans le shaker.",
+                            "Shake le tout : Ferme bien ton Boston shaker et shake énergiquement pendant 10-15 secondes.",
+                            "Verse dans le verre : Vide les glaçons fondus du verre si besoin. Filtre avec la passoire Hawthorne et verse le contenu dans le verre.",
+                            "Finition (optionnelle) : Si tu veux renforcer l'effet visuel 'sunset', verse un mini trait de grenadine doucement le long de la cuillère à agiter."
+                        ]
+                    },
+                    {
+                        id: "whisky-cooler-fruite",
+                        name: "🥃 Whisky Cooler Fruité",
+                        type: "Cocktail doux au whisky",
+                        image: "https://images.unsplash.com/photo-1570598912132-0ba1dc952b7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                        ingredients: [
+                            "3 cl de Ballantine's (ou autre whisky doux)",
+                            "6 cl de jus multifruits",
+                            "1 cl de jus de citron jaune",
+                            "1 cl de sirop de grenadine",
+                            "Glaçons",
+                            "Optionnel : un trait d'eau gazeuse ou eau plate"
+                        ],
+                        tools: [
+                            "Jigger 30/15",
+                            "Boston shaker",
+                            "Pince à glace",
+                            "Cuillère à agiter",
+                            "Passoire Hawthorne"
+                        ],
+                        steps: [
+                            "Prépare ton verre : Remplis un verre type tumbler avec des glaçons pour le rafraîchir.",
+                            "Mesure les ingrédients dans le shaker : 3 cl de Ballantine's, 6 cl de jus multifruits, 1 cl de jus de citron jaune, 1 cl de sirop de grenadine.",
+                            "Ajoute des glaçons dans le shaker : Mets 4 à 5 glaçons à l'intérieur avec la pince à glace.",
+                            "Shake : Ferme le Boston shaker bien solidement et shake pendant 10-15 secondes.",
+                            "Verse et filtre : Retire les glaçons du verre si besoin. Place la passoire Hawthorne sur ton shaker et verse dans le verre.",
+                            "Option d'allègement : Si tu veux le rendre encore plus doux, ajoute un trait d'eau gazeuse ou plate."
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Variables globales
+        let currentEstablishment = null;
+        let currentCocktail = null;
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            loadEstablishments();
+            
+            // Animation pour les éléments lorsqu'ils deviennent visibles
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.establishment-card, .cocktail-item').forEach(card => {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(20px)";
+                card.style.transition = "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+                observer.observe(card);
+            });
+        });
+
+        // Charger les établissements
+        function loadEstablishments() {
+            const container = document.getElementById('establishments-container');
+            
+            establishmentsData.forEach(establishment => {
+                const card = document.createElement('div');
+                card.className = 'establishment-card';
+                card.setAttribute('data-id', establishment.id);
+                card.innerHTML = `
+                    <img src="${establishment.image}" alt="${establishment.name}" class="establishment-img">
+                    <div class="establishment-info">
+                        <h3 class="establishment-name">${establishment.name}</h3>
+                        <p class="establishment-location">${establishment.location}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+                
+                card.addEventListener('click', () => {
+                    selectEstablishment(establishment.id);
+                });
+            });
+            
+            // Sélectionner le premier établissement par défaut
+            if (establishmentsData.length > 0) {
+                selectEstablishment(establishmentsData[0].id);
+            }
+        }
+
+        // Sélectionner un établissement
+        function selectEstablishment(establishmentId) {
+            // Mettre à jour l'interface
+            document.querySelectorAll('.establishment-card').forEach(card => {
+                card.classList.remove('active');
+                if (card.getAttribute('data-id') === establishmentId) {
+                    card.classList.add('active');
+                }
+            });
+            
+            // Trouver l'établissement
+            const establishment = establishmentsData.find(e => e.id === establishmentId);
+            if (!establishment) return;
+            
+            currentEstablishment = establishment;
+            
+            // Charger les cocktails
+            loadCocktails(establishment.cocktails);
+            
+            // Sélectionner le premier cocktail
+            if (establishment.cocktails.length > 0) {
+                selectCocktail(establishment.cocktails[0].id);
+            } else {
+                clearCocktailDetails();
+            }
+        }
+
+        // Charger la liste des cocktails
+        function loadCocktails(cocktails) {
+            const container = document.getElementById('cocktails-list');
+            container.innerHTML = '';
+            
+            cocktails.forEach(cocktail => {
+                const item = document.createElement('div');
+                item.className = 'cocktail-item';
+                item.setAttribute('data-id', cocktail.id);
+                item.innerHTML = `
+                    <h4>${cocktail.name}</h4>
+                    <p>${cocktail.type}</p>
+                `;
+                container.appendChild(item);
+                
+                item.addEventListener('click', () => {
+                    selectCocktail(cocktail.id);
+                });
+            });
+        }
+
+        // Sélectionner un cocktail
+        function selectCocktail(cocktailId) {
+            if (!currentEstablishment) return;
+            
+            // Mettre à jour l'interface
+            document.querySelectorAll('.cocktail-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-id') === cocktailId) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Trouver le cocktail
+            const cocktail = currentEstablishment.cocktails.find(c => c.id === cocktailId);
+            if (!cocktail) return;
+            
+            currentCocktail = cocktail;
+            
+            // Afficher les détails
+            showCocktailDetails(cocktail);
+        }
+
+        // Afficher les détails du cocktail
+        function showCocktailDetails(cocktail) {
+            // Image
+            const image = document.getElementById('cocktail-image');
+            image.src = cocktail.image;
+            image.alt = cocktail.name;
+            
+            // Nom et type
+            document.getElementById('cocktail-name').textContent = cocktail.name;
+            document.getElementById('cocktail-type').textContent = cocktail.type;
+            
+            // Ingrédients
+            const ingredientsList = document.getElementById('ingredients-list');
+            ingredientsList.innerHTML = '';
+            cocktail.ingredients.forEach(ingredient => {
+                const li = document.createElement('li');
+                li.textContent = ingredient;
+                ingredientsList.appendChild(li);
+            });
+            
+            // Outils
+            const toolsList = document.getElementById('tools-list');
+            toolsList.innerHTML = '';
+            cocktail.tools.forEach(tool => {
+                const li = document.createElement('li');
+                li.textContent = tool;
+                toolsList.appendChild(li);
+            });
+            
+            // Étapes
+            const stepsList = document.getElementById('recipe-steps');
+            stepsList.innerHTML = '';
+            cocktail.steps.forEach(step => {
+                const li = document.createElement('li');
+                li.textContent = step;
+                stepsList.appendChild(li);
+            });
+        }
+
+        // Effacer les détails du cocktail
+        function clearCocktailDetails() {
+            document.getElementById('cocktail-image').src = '';
+            document.getElementById('cocktail-image').alt = '';
+            document.getElementById('cocktail-name').textContent = 'Sélectionnez un cocktail';
+            document.getElementById('cocktail-type').textContent = '';
+            document.getElementById('ingredients-list').innerHTML = '<li class="empty-state">Aucun cocktail sélectionné</li>';
+            document.getElementById('tools-list').innerHTML = '<li class="empty-state">Aucun cocktail sélectionné</li>';
+            document.getElementById('recipe-steps').innerHTML = '<li class="empty-state">Aucun cocktail sélectionné</li>';
+        }
+    </script>
 </body>
 </html>

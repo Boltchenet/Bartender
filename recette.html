@@ -1,143 +1,714 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recettes de Cocktails - Barman Pro</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="recipes.css">
-  <style>
-    .recipe-page {
-      display: flex;
-      gap: 20px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktails - Barman Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* =================== */
+        /* === VARIABLES ==== */
+        /* =================== */
+        :root {
+            --gold: #D4AF37;
+            --dark-gold: #9E7C0C;
+            --black: #0A0A0A;
+            --darker-black: #050505;
+            --dark-gray: #1A1A1A;
+            --light-gray: #E5E5E5;
+            --white: #F0F0F0;
+            --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --glow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
 
-    .cocktail-list {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      width: 150px;
-      flex-shrink: 0;
-    }
+        /* =================== */
+        /* === BASE ======== */
+        /* =================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .cocktail-card {
-      width: 150px;
-      height: 150px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            background-color: var(--black);
+            line-height: 1.6;
+        }
 
-    .cocktail-card:hover {
-      transform: scale(1.05);
-    }
+        h1, h2, h3 {
+            font-family: 'Parisienne', cursive;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
 
-    .cocktail-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-    .cocktail-card p {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      font-weight: bold;
-      text-align: center;
-      padding: 5px;
-      margin: 0;
-      font-size: 14px;
-      font-family: 'Montserrat', sans-serif;
-    }
+        /* =================== */
+        /* === HEADER ====== */
+        /* =================== */
+        .app-header {
+            background-color: var(--darker-black);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
 
-    .craft-interface {
-      flex: 1;
-      padding: 20px;
-      background-color: #f5f5f5;
-      border-radius: 10px;
-    }
-  </style>
+        .logo-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo {
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin: 0;
+            text-transform: none;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            position: relative;
+            z-index: 2;
+            transition: all var(--transition);
+            font-weight: 400;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110%;
+            height: 110%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0;
+            transition: all var(--transition);
+        }
+
+        .logo-container:hover .logo {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .logo-container:hover .logo::after {
+            opacity: 1;
+        }
+
+        .slogan {
+            color: var(--light-gray);
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-top: -0.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            opacity: 0.8;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* =================== */
+        /* === MAIN LAYOUT == */
+        /* =================== */
+        .cocktails-app {
+            display: flex;
+            min-height: calc(100vh - 150px);
+        }
+
+        /* Sidebar */
+        .cocktails-sidebar {
+            width: 350px;
+            background-color: var(--darker-black);
+            padding: 2rem;
+            border-right: 1px solid rgba(212, 175, 55, 0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Détails du cocktail */
+        .cocktail-details {
+            flex: 1;
+            padding: 2rem;
+            background-color: var(--black);
+            overflow-y: auto;
+        }
+
+        /* =================== */
+        /* === LISTE COCKTAILS === */
+        /* =================== */
+        .cocktails-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .cocktail-card {
+            background: var(--dark-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .cocktail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), var(--glow);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .cocktail-card.active {
+            border: 1px solid var(--gold);
+            box-shadow: var(--glow);
+        }
+
+        .cocktail-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            filter: brightness(0.9);
+            transition: filter var(--transition);
+        }
+
+        .cocktail-card:hover .cocktail-img {
+            filter: brightness(1.1);
+        }
+
+        .cocktail-info {
+            padding: 1rem;
+        }
+
+        .cocktail-name {
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cocktail-type {
+            font-size: 0.8rem;
+            color: var(--light-gray);
+            opacity: 0.8;
+        }
+
+        /* =================== */
+        /* === DÉTAILS COCKTAIL === */
+        /* =================== */
+        .cocktail-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .cocktail-image {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            filter: brightness(0.95);
+            transition: all var(--transition);
+        }
+
+        .cocktail-image:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .cocktail-info h2 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+
+        .cocktail-category {
+            font-style: italic;
+            color: var(--light-gray);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .cocktail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .ingredients-section, 
+        .tools-section, 
+        .recipe-section {
+            background: var(--dark-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .recipe-section {
+            grid-column: span 2;
+        }
+
+        .ingredients-section h3, 
+        .tools-section h3, 
+        .recipe-section h3 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        li::before {
+            content: '•';
+            color: var(--gold);
+            position: absolute;
+            left: -1rem;
+        }
+
+        ol li {
+            counter-increment: step-counter;
+            margin-bottom: 1rem;
+        }
+
+        ol li::before {
+            content: counter(step-counter);
+            color: var(--gold);
+            position: absolute;
+            left: -1.8rem;
+            top: -0.1rem;
+            font-size: 0.9rem;
+        }
+
+        .empty-state {
+            color: var(--light-gray);
+            font-style: italic;
+            opacity: 0.6;
+        }
+
+        /* =================== */
+        /* === RESPONSIVE === */
+        /* =================== */
+        @media (max-width: 992px) {
+            .cocktails-app {
+                flex-direction: column;
+            }
+            
+            .cocktails-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+            
+            .cocktail-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cocktail-image {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
+            }
+            
+            .cocktail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .recipe-section {
+                grid-column: span 1;
+            }
+
+            .logo {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cocktails-list {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .cocktail-img {
+                height: 100px;
+            }
+
+            .logo {
+                font-size: 2.8rem;
+            }
+
+            .slogan {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header class="app-header">
+        <div class="logo-container">
+            <a href="index.html">
+                <h1 class="logo">Barman</h1>
+            </a>
+            <p class="slogan">L'encyclopédie des cocktails</p>
+        </div>
+    </header>
 
-<header class="main-header">
-  <div class="logo-container">
-    <a href="index.html"><h1 class="logo">Barman</h1></a>
-    <p class="slogan">L'art du cocktail à portée de main</p>
-  </div>
-</header>
+    <main class="cocktails-app">
+        <!-- Liste des cocktails -->
+        <aside class="cocktails-sidebar">
+            <h3 class="sidebar-title">Tous les cocktails</h3>
+            <div class="cocktails-list" id="cocktails-list">
+                <!-- Généré par JS -->
+            </div>
+        </aside>
 
-<main class="recipe-page" id="recipes-page">
+        <!-- Détails du cocktail -->
+        <section class="cocktail-details" id="cocktail-details">
+            <div class="cocktail-header">
+                <img src="" alt="" id="cocktail-image" class="cocktail-image">
+                <div class="cocktail-info">
+                    <h2 id="cocktail-name">Sélectionnez un cocktail</h2>
+                    <p class="cocktail-category" id="cocktail-category"></p>
+                </div>
+            </div>
 
-  <aside class="cocktail-list">
-    <div class="cocktail-card" onclick="showRecipe('mojito')">
-      <img src="https://www.liquor.com/thmb/MJRVqf-itJGY90nwUOYGXnyG-HA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mojito-720x720-primary-6a57f80e200c412e9a77a1687f312ff7.jpg" alt="Mojito">
-      <p>Mojito</p>
-    </div>
-    <div class="cocktail-card" onclick="showRecipe('martini')">
-      <img src="https://resize.elle.fr/original/var/plain_site/storage/images/elle-a-table/recettes-de-cuisine/martini-dry-2068016/21696942-3-fre-FR/Cocktail-Martini-dry.jpg" alt="Martini Dry">
-      <p>Martini Dry</p>
-    </div>
-    <div class="cocktail-card" onclick="showRecipe('pina_colada')">
-      <img src="https://assets.afcdn.com/recipe/20180605/79412_w1024h1024c1cx2000cy3000cxt0cyt0cxb4000cyb6000.jpg" alt="Piña Colada">
-      <p>Piña Colada</p>
-    </div>
-    <div class="cocktail-card" onclick="showRecipe('virgin_sunrise')">
-      <img src="https://www.tables-auberges.com/storage/uploads/2023/12/AdobeStock_202944941-min-scaled.jpeg" alt="Virgin Sunrise">
-      <p>Virgin Sunrise</p>
-    </div>
-    <div class="cocktail-card" onclick="showRecipe('virgin_mojito')">
-      <img src="https://shop.pierre-chavin.com/img/cms/Page%20Mocktails/Virgin%20Mojito/MOJITO_CHAVIN_SANS%20ALCOOL_2023%20HD%20(19).jpg" alt="Virgin Mojito">
-      <p>Virgin Mojito</p>
-    </div>
-    <div class="cocktail-card" onclick="showRecipe('daiquiri')">
-      <img src="https://www.liquor.com/thmb/ffYicPLJk00SWKg2shV67TPHV74=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Daiquiri_3000x3000_primary-206eb2330cb04852ab7d780dcf3d55ef.jpg" alt="Daiquiri">
-      <p>Daiquiri</p>
-    </div>
-    <div class="cocktail-card" onclick="showRecipe('margarita')">
-      <img src="https://www.santospirits.com/wp-content/uploads/2024/01/velvet_kickstand_margarita.jpg" alt="Margarita">
-      <p>Margarita</p>
-    </div>
-  </aside>
+            <div class="cocktail-content">
+                <div class="ingredients-section">
+                    <h3>Ingrédients</h3>
+                    <ul id="ingredients-list">
+                        <li class="empty-state">Aucun cocktail sélectionné</li>
+                    </ul>
+                </div>
 
-  <section class="craft-interface" id="craft-interface">
-    <h2 class="cocktail-title">Sélectionnez un cocktail</h2>
+                <div class="tools-section">
+                    <h3>Outils nécessaires</h3>
+                    <ul id="tools-list">
+                        <li class="empty-state">Aucun cocktail sélectionné</li>
+                    </ul>
+                </div>
 
-    <div class="craft-top">
-      <div class="tools-section">
-        <h3>Outils nécessaires</h3>
-        <ul id="tools-list">
-          <li>–</li>
-        </ul>
-      </div>
-      <div class="ingredients-section">
-        <h3>Ingrédients</h3>
-        <ul id="ingredients-list">
-          <li>–</li>
-        </ul>
-      </div>
-    </div>
+                <div class="recipe-section">
+                    <h3>Recette</h3>
+                    <ol id="recipe-steps">
+                        <li class="empty-state">Aucun cocktail sélectionné</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <div class="craft-steps">
-      <h3>Préparation</h3>
-      <ol id="steps-list">
-        <li>–</li>
-      </ol>
-    </div>
-  </section>
-</main>
+    <script>
+        // Données des cocktails
+        const cocktailsData = [
+            {
+                id: "mojito",
+                name: "Mojito Classique",
+                category: "Cocktail rafraîchissant",
+                image: "https://www.liquor.com/thmb/MJRVqf-itJGY90nwUOYGXnyG-HA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mojito-720x720-primary-6a57f80e200c412e9a77a1687f312ff7.jpg",
+                ingredients: [
+                    "6 feuilles de menthe fraîche",
+                    "4 cl de rhum cubain",
+                    "2 cl de sirop de canne",
+                    "1/2 citron vert coupé",
+                    "Eau gazeuse",
+                    "Glace pilée"
+                ],
+                tools: [
+                    "Verre highball",
+                    "Pilon",
+                    "Cuillère à mélange"
+                ],
+                steps: [
+                    "Piler légèrement la menthe avec le sirop dans un verre",
+                    "Ajouter le citron coupé en morceaux",
+                    "Verser le rhum et remplir de glace pilée",
+                    "Compléter avec de l'eau gazeuse et mélanger délicatement",
+                    "Décorer avec une branche de menthe et une rondelle de citron"
+                ]
+            },
+            {
+                id: "martini",
+                name: "Martini Dry",
+                category: "Cocktail élégant",
+                image: "https://resize.elle.fr/original/var/plain_site/storage/images/elle-a-table/recettes-de-cuisine/martini-dry-2068016/21696942-3-fre-FR/Cocktail-Martini-dry.jpg",
+                ingredients: [
+                    "6 cl de gin premium",
+                    "1 cl de vermouth dry",
+                    "Zeste de citron ou olive"
+                ],
+                tools: [
+                    "Verre à martini",
+                    "Shaker",
+                    "Passoire fine",
+                    "Zesteuse"
+                ],
+                steps: [
+                    "Mélanger le gin et le vermouth avec des glaçons",
+                    "Remuer délicatement 30 secondes",
+                    "Filtrer dans un verre à cocktail refroidi",
+                    "Ajouter une olive ou un zeste de citron"
+                ]
+            },
+            {
+                id: "margarita",
+                name: "Margarita",
+                category: "Cocktail fruité",
+                image: "https://www.santospirits.com/wp-content/uploads/2024/01/velvet_kickstand_margarita.jpg",
+                ingredients: [
+                    "4 cl de tequila",
+                    "2 cl de triple sec",
+                    "2 cl de jus de citron vert",
+                    "Sel pour le bord du verre"
+                ],
+                tools: [
+                    "Shaker",
+                    "Verre à margarita",
+                    "Assiette pour le sel"
+                ],
+                steps: [
+                    "Givrer le bord du verre avec du citron vert et du sel",
+                    "Shaker tous les ingrédients avec des glaçons",
+                    "Verser dans le verre avec de la glace",
+                    "Décorer avec une tranche de citron vert"
+                ]
+            },
+            {
+                id: "pina-colada",
+                name: "Piña Colada",
+                category: "Cocktail tropical",
+                image: "https://assets.afcdn.com/recipe/20180605/79412_w1024h1024c1cx2000cy3000cxt0cyt0cxb4000cyb6000.jpg",
+                ingredients: [
+                    "4 cl de rhum blanc",
+                    "2 cl de crème de coco",
+                    "4 cl de jus d'ananas",
+                    "Glaçons"
+                ],
+                tools: [
+                    "Shaker",
+                    "Verre à cocktail",
+                    "Mixeur (optionnel)"
+                ],
+                steps: [
+                    "Verser tous les ingrédients dans un shaker avec des glaçons",
+                    "Secouer énergiquement",
+                    "Filtrer et verser dans un verre à cocktail",
+                    "Décorer avec un morceau d'ananas ou une cerise"
+                ]
+            },
+            {
+                id: "daiquiri",
+                name: "Daiquiri",
+                category: "Cocktail classique",
+                image: "https://www.liquor.com/thmb/ffYicPLJk00SWKg2shV67TPHV74=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Daiquiri_3000x3000_primary-206eb2330cb04852ab7d780dcf3d55ef.jpg",
+                ingredients: [
+                    "4 cl de rhum blanc",
+                    "2 cl de jus de citron vert",
+                    "2 cl de sirop de sucre de canne",
+                    "Glaçons"
+                ],
+                tools: [
+                    "Shaker",
+                    "Verre à cocktail"
+                ],
+                steps: [
+                    "Verser tous les ingrédients dans un shaker avec des glaçons",
+                    "Secouer vigoureusement",
+                    "Filtrer et verser dans un verre à cocktail"
+                ]
+            },
+            {
+                id: "cosmopolitan",
+                name: "Cosmopolitan",
+                category: "Cocktail sophistiqué",
+                image: "https://www.liquor.com/thmb/5wV9vG3QHXpQqWlXWqj1Vz9y0d8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/cosmopolitan-720x720-primary-7c1a8d2b5b8a4c3d9a2b5d5e5f5a5d5e.jpg",
+                ingredients: [
+                    "4 cl de vodka citron",
+                    "2 cl de triple sec",
+                    "3 cl de jus de cranberry",
+                    "1 cl de jus de citron vert"
+                ],
+                tools: [
+                    "Shaker",
+                    "Verre à martini",
+                    "Passoire fine"
+                ],
+                steps: [
+                    "Shaker tous les ingrédients avec des glaçons",
+                    "Filtrer dans un verre à martini refroidi",
+                    "Décorer avec un zeste d'orange"
+                ]
+            },
+            {
+                id: "negroni",
+                name: "Negroni",
+                category: "Apéritif italien",
+                image: "https://www.liquor.com/thmb/5wV9vG3QHXpQqWlXWqj1Vz9y0d8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/negroni-720x720-primary-7c1a8d2b5b8a4c3d9a2b5d5e5f5a5d5e.jpg",
+                ingredients: [
+                    "3 cl de gin",
+                    "3 cl de Campari",
+                    "3 cl de vermouth rouge",
+                    "Zeste d'orange"
+                ],
+                tools: [
+                    "Verre à mélange",
+                    "Cuillère à mélange",
+                    "Verre à rocks"
+                ],
+                steps: [
+                    "Verser tous les ingrédients dans un verre à mélange avec des glaçons",
+                    "Remuer délicatement",
+                    "Verser dans un verre à rocks avec de la glace",
+                    "Décorer avec un zeste d'orange"
+                ]
+            },
+            {
+                id: "old-fashioned",
+                name: "Old Fashioned",
+                category: "Cocktail classique",
+                image: "https://www.liquor.com/thmb/5wV9vG3QHXpQqWlXWqj1Vz9y0d8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/old-fashioned-720x720-primary-7c1a8d2b5b8a4c3d9a2b5d5e5f5a5d5e.jpg",
+                ingredients: [
+                    "5 cl de whisky bourbon",
+                    "1 morceau de sucre",
+                    "2 traits d'Angostura bitters",
+                    "Zeste d'orange"
+                ],
+                tools: [
+                    "Verre à rocks",
+                    "Pilon",
+                    "Cuillère à mélange"
+                ],
+                steps: [
+                    "Mélanger le sucre et les bitters dans le verre",
+                    "Ajouter un peu d'eau et bien mélanger",
+                    "Ajouter le whisky et des glaçons",
+                    "Remuer délicatement",
+                    "Décorer avec un zeste d'orange"
+                ]
+            }
+        ];
 
-<footer>
-  <p>© 2023 Barman Pro | Artisanat Mixologique</p>
-</footer>
+        // Variables globales
+        let currentCocktail = null;
 
-<script src="recette.js"></script>
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCocktails();
+            
+            // Sélectionner le premier cocktail par défaut
+            if (cocktailsData.length > 0) {
+                selectCocktail(cocktailsData[0].id);
+            }
+        });
+
+        // Charger la liste des cocktails
+        function loadCocktails() {
+            const container = document.getElementById('cocktails-list');
+            
+            cocktailsData.forEach(cocktail => {
+                const card = document.createElement('div');
+                card.className = 'cocktail-card';
+                card.setAttribute('data-id', cocktail.id);
+                card.innerHTML = `
+                    <img src="${cocktail.image}" alt="${cocktail.name}" class="cocktail-img">
+                    <div class="cocktail-info">
+                        <h3 class="cocktail-name">${cocktail.name}</h3>
+                        <p class="cocktail-type">${cocktail.category}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+                
+                card.addEventListener('click', () => {
+                    selectCocktail(cocktail.id);
+                });
+            });
+        }
+
+        // Sélectionner un cocktail
+        function selectCocktail(cocktailId) {
+            // Mettre à jour l'interface
+            document.querySelectorAll('.cocktail-card').forEach(card => {
+                card.classList.remove('active');
+                if (card.getAttribute('data-id') === cocktailId) {
+                    card.classList.add('active');
+                }
+            });
+            
+            // Trouver le cocktail
+            const cocktail = cocktailsData.find(c => c.id === cocktailId);
+            if (!cocktail) return;
+            
+            currentCocktail = cocktail;
+            
+            // Afficher les détails
+            showCocktailDetails(cocktail);
+        }
+
+        // Afficher les détails du cocktail
+        function showCocktailDetails(cocktail) {
+            // Image
+            const image = document.getElementById('cocktail-image');
+            image.src = cocktail.image;
+            image.alt = cocktail.name;
+            
+            // Nom et catégorie
+            document.getElementById('cocktail-name').textContent = cocktail.name;
+            document.getElementById('cocktail-category').textContent = cocktail.category;
+            
+            // Ingrédients
+            const ingredientsList = document.getElementById('ingredients-list');
+            ingredientsList.innerHTML = '';
+            cocktail.ingredients.forEach(ingredient => {
+                const li = document.createElement('li');
+                li.textContent = ingredient;
+                ingredientsList.appendChild(li);
+            });
+            
+            // Outils
+            const toolsList = document.getElementById('tools-list');
+            toolsList.innerHTML = '';
+            cocktail.tools.forEach(tool => {
+                const li = document.createElement('li');
+                li.textContent = tool;
+                toolsList.appendChild(li);
+            });
+            
+            // Étapes
+            const stepsList = document.getElementById('recipe-steps');
+            stepsList.innerHTML = '';
+            cocktail.steps.forEach(step => {
+                const li = document.createElement('li');
+                li.textContent = step;
+                stepsList.appendChild(li);
+            });
+        }
+    </script>
 </body>
 </html>
