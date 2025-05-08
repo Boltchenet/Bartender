@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commandes - Barman Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Établissements - Barman Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -50,6 +50,11 @@
         a {
             text-decoration: none;
             color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         /* =================== */
@@ -117,7 +122,7 @@
         /* =================== */
         /* === MAIN LAYOUT == */
         /* =================== */
-        .commands-app {
+        .establishments-app {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -174,345 +179,106 @@
             opacity: 0.6;
         }
 
-        .establishment-select {
-            padding: 0.8rem 1rem;
-            background-color: var(--dark-gray);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 6px;
-            color: var(--white);
-            font-family: 'Montserrat', sans-serif;
-            min-width: 200px;
-            transition: all var(--transition);
-        }
-
-        .establishment-select:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: var(--glow);
-        }
-
         /* Contenu principal */
         .main-content {
-            display: flex;
+            padding: 2rem;
+            background-color: var(--black);
             flex: 1;
         }
 
-        /* Section des recettes */
-        .recipes-section {
-            width: 350px;
-            background-color: var(--darker-black);
-            padding: 2rem;
-            border-right: 1px solid rgba(212, 175, 55, 0.1);
-            overflow-y: auto;
+        .establishments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .sidebar-title {
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .filters-section {
-            background: var(--darker-black);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .filter-button {
-            padding: 0.8rem 1.5rem;
+        .establishment-card {
             background: var(--dark-gray);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 6px;
-            color: var(--gold);
-            font-family: 'Montserrat', sans-serif;
-            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
             transition: all var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .establishment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .establishment-img {
             width: 100%;
-            justify-content: center;
+            height: 180px;
+            object-fit: cover;
+            filter: brightness(0.9);
+            transition: filter var(--transition);
         }
 
-        .filter-button:hover {
-            border-color: var(--gold);
-            background: rgba(212, 175, 55, 0.1);
+        .establishment-card:hover .establishment-img {
+            filter: brightness(1.1);
         }
 
-        .active-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
+        .establishment-info {
+            padding: 1.5rem;
         }
 
-        .active-filter {
-            background: rgba(212, 175, 55, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
+        .establishment-name {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .establishment-location {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
         }
 
-        .active-filter button {
-            background: none;
-            border: none;
-            color: var(--light-gray);
-            cursor: pointer;
+        .establishment-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
         }
 
-        .recipes-list {
+        .establishment-actions {
             display: flex;
-            flex-direction: column;
             gap: 0.8rem;
         }
 
-        .recipe-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: rgba(30, 30, 30, 0.5);
-            padding: 1rem;
-            border-radius: 6px;
+        .establishment-btn {
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
             cursor: pointer;
             transition: all var(--transition);
-            border-left: 3px solid transparent;
-        }
-
-        .recipe-item:hover {
-            background: rgba(40, 40, 40, 0.7);
-            transform: translateX(5px);
-            border-left-color: var(--gold);
-        }
-
-        .recipe-image {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            filter: brightness(0.9);
-            transition: filter var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .recipe-item:hover .recipe-image {
-            filter: brightness(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .recipe-text {
             flex: 1;
+            text-align: center;
         }
 
-        .recipe-item h4 {
-            margin-bottom: 0.3rem;
-            color: var(--gold);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .recipe-item p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Section des commandes */
-        .commands-section {
-            flex: 1;
-            padding: 2rem;
-            background-color: var(--black);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .commands-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .commands-title {
-            color: var(--gold);
-            font-size: 1.8rem;
-        }
-
-        .new-command-btn {
-            padding: 0.8rem 1.5rem;
-            background-color: var(--gold);
+        .establishment-btn.primary {
+            background: var(--gold);
             color: var(--black);
             border: none;
-            border-radius: 50px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        .new-command-btn:hover {
-            background-color: var(--dark-gold);
-            transform: translateY(-2px);
+        .establishment-btn.primary:hover {
+            background: var(--dark-gold);
             box-shadow: var(--glow);
         }
 
-        .commands-list {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            overflow-y: auto;
-        }
-
-        .command-card {
-            background: var(--dark-gray);
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all var(--transition);
-        }
-
-        .command-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .command-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .command-title-container {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .command-image {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            filter: brightness(0.95);
-            transition: all var(--transition);
-        }
-
-        .command-card:hover .command-image {
-            filter: brightness(1.1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-        }
-
-        .command-name {
-            color: var(--gold);
-            font-size: 1.3rem;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .command-recipe-name {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 0.2rem;
-        }
-
-        .command-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .command-btn {
-            padding: 0.5rem 1rem;
+        .establishment-btn.secondary {
             background: transparent;
             border: 1px solid var(--gold);
-            border-radius: 4px;
             color: var(--gold);
-            cursor: pointer;
-            transition: all var(--transition);
-            font-size: 0.9rem;
         }
 
-        .command-btn:hover {
+        .establishment-btn.secondary:hover {
             background: rgba(212, 175, 55, 0.1);
-        }
-
-        .command-btn.delete {
-            border-color: #ff4d4d;
-            color: #ff4d4d;
-        }
-
-        .command-btn.delete:hover {
-            background: rgba(255, 77, 77, 0.1);
-        }
-
-        .command-btn.validate {
-            border-color: #4CAF50;
-            color: #4CAF50;
-        }
-
-        .command-btn.validate:hover {
-            background: rgba(76, 175, 80, 0.1);
-        }
-
-        .command-details {
-            margin-top: 1rem;
-        }
-
-        .command-recipe {
-            margin-bottom: 1rem;
-        }
-
-        .command-recipe h4 {
-            color: var(--gold);
-            font-family: 'Montserrat', sans-serif;
-            margin-bottom: 0.5rem;
-        }
-
-        .command-recipe p {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-
-        .command-steps {
-            background: rgba(30, 30, 30, 0.5);
-            padding: 1rem;
-            border-radius: 6px;
-            margin-top: 1rem;
-        }
-
-        .command-steps h4 {
-            color: var(--gold);
-            font-family: 'Montserrat', sans-serif;
-            margin-bottom: 0.5rem;
-        }
-
-        ol.command-steps-list {
-            padding-left: 1.5rem;
-        }
-
-        ol.command-steps-list li {
-            margin-bottom: 0.5rem;
-            position: relative;
-        }
-
-        ol.command-steps-list li::before {
-            content: counter(step-counter);
-            counter-increment: step-counter;
-            color: var(--gold);
-            position: absolute;
-            left: -1.5rem;
-            top: 0;
-            font-size: 0.9rem;
         }
 
         .empty-state {
@@ -520,7 +286,8 @@
             font-style: italic;
             opacity: 0.6;
             text-align: center;
-            margin: auto;
+            margin: 2rem 0;
+            grid-column: 1 / -1;
         }
 
         /* =================== */
@@ -662,38 +429,32 @@
             box-shadow: var(--glow);
         }
 
-        /* Filtres modal */
-        .filter-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .filter-option input {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--gold);
-        }
-
         /* =================== */
         /* === RESPONSIVE === */
         /* =================== */
-        @media (max-width: 992px) {
-            .main-content {
-                flex-direction: column;
+        /* Pour les tablettes en orientation paysage */
+        @media (max-width: 1024px) and (min-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
             }
             
-            .recipes-section {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .establishment-card {
+                min-width: 220px;
+            }
+            
+            .establishment-img {
+                height: 140px;
+            }
+        }
+
+        /* Pour les tablettes en orientation portrait */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
             }
             
             .control-bar {
@@ -708,43 +469,41 @@
             .search-bar {
                 max-width: 100%;
             }
-        }
-
-        @media (max-width: 768px) {
-            .command-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
+            
+            .main-content {
+                padding: 1.5rem;
             }
             
-            .command-title-container {
-                width: 100%;
-            }
-            
-            .command-actions {
-                width: 100%;
-                justify-content: flex-end;
-                margin-top: 1rem;
+            .establishments-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1.5rem;
             }
         }
 
+        /* Pour les téléphones */
         @media (max-width: 576px) {
             .logo {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
-
+            
             .slogan {
                 font-size: 1rem;
             }
             
-            .command-image {
-                width: 80px;
-                height: 80px;
+            .establishments-grid {
+                grid-template-columns: 1fr;
             }
             
-            .recipe-image {
-                width: 60px;
-                height: 60px;
+            .establishment-img {
+                height: 120px;
+            }
+            
+            .establishment-actions {
+                flex-direction: column;
+            }
+            
+            .establishment-btn {
+                width: 100%;
             }
         }
     </style>
@@ -755,662 +514,250 @@
             <a href="index.html">
                 <h1 class="logo">Barman</h1>
             </a>
-            <p class="slogan">Gestion des commandes</p>
+            <p class="slogan">Gestion des établissements</p>
         </div>
     </header>
 
-    <main class="commands-app">
+    <main class="establishments-app">
         <!-- Barre de contrôle -->
         <section class="control-bar">
-            <h2 class="section-title">Commandes en cours</h2>
+            <h2 class="section-title">Vos Établissements</h2>
             
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Rechercher une recette...">
+                <input type="text" id="search-input" placeholder="Rechercher un établissement...">
             </div>
             
-            <select class="establishment-select" id="establishment-select">
-                <option value="all">Tous les établissements</option>
-                <option value="maison">Maison</option>
-                <!-- Autres établissements peuvent être ajoutés ici -->
-            </select>
+            <button class="establishment-btn primary" id="new-establishment-btn">
+                + Nouvel établissement
+            </button>
         </section>
 
         <!-- Contenu principal -->
         <div class="main-content">
-            <!-- Section des recettes -->
-            <aside class="recipes-section" id="recipes-section">
-                <h3 class="sidebar-title">Recettes disponibles</h3>
-                
-                <div class="filters-section">
-                    <button class="filter-button" id="open-filters">
-                        <span>Filtres</span>
-                    </button>
-                    
-                    <div class="active-filters" id="active-filters">
-                        <!-- Les filtres actifs apparaîtront ici -->
+            <div class="establishments-grid" id="establishments-grid">
+                <!-- Exemple d'établissement -->
+                <div class="establishment-card">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Maison" class="establishment-img">
+                    <div class="establishment-info">
+                        <h3 class="establishment-name">Maison</h3>
+                        <div class="establishment-location">
+                            <span>📍</span>
+                            <span>Domicile personnel</span>
+                        </div>
+                        <p class="establishment-description">
+                            Votre bar personnel pour préparer des cocktails en famille ou entre amis.
+                        </p>
+                        <div class="establishment-actions">
+                            <button class="establishment-btn primary">Ouvrir</button>
+                            <button class="establishment-btn secondary">Modifier</button>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="recipes-list" id="recipes-list">
-                    <!-- Généré par JS -->
-                </div>
-            </aside>
-
-            <!-- Section des commandes -->
-            <section class="commands-section" id="commands-section">
-                <div class="commands-header">
-                    <h3 class="commands-title">Vos Commandes</h3>
-                    <button class="new-command-btn" id="new-command-btn">
-                        + Nouvelle commande
-                    </button>
-                </div>
-                
-                <div class="commands-list" id="commands-list">
-                    <p class="empty-state">Aucune commande pour le moment. Ajoutez-en une !</p>
-                    <!-- Les commandes seront ajoutées ici par JavaScript -->
-                </div>
-            </section>
+                <!-- Plus d'établissements seront ajoutés ici par JavaScript -->
+            </div>
         </div>
     </main>
 
-    <!-- Modal pour nouvelle commande -->
-    <div class="modal-overlay" id="command-modal">
+    <!-- Modal pour nouvel établissement -->
+    <div class="modal-overlay" id="establishment-modal">
         <div class="modal">
             <div class="modal-header">
-                <h3 class="modal-title">Nouvelle Commande</h3>
+                <h3 class="modal-title">Nouvel Établissement</h3>
                 <button class="close-modal" id="close-modal">&times;</button>
             </div>
             
-            <form id="command-form">
+            <form id="establishment-form">
                 <div class="form-group">
-                    <label for="command-name">Nom de la commande</label>
-                    <input type="text" id="command-name" required>
+                    <label for="establishment-name">Nom de l'établissement</label>
+                    <input type="text" id="establishment-name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="command-recipe">Recette</label>
-                    <select id="command-recipe" required>
-                        <option value="">Sélectionnez une recette</option>
-                        <!-- Les options seront ajoutées par JavaScript -->
-                    </select>
+                    <label for="establishment-location">Localisation</label>
+                    <input type="text" id="establishment-location" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="command-notes">Notes supplémentaires</label>
-                    <textarea id="command-notes"></textarea>
+                    <label for="establishment-description">Description</label>
+                    <textarea id="establishment-description"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="establishment-image">URL de l'image</label>
+                    <input type="text" id="establishment-image" placeholder="https://...">
                 </div>
                 
                 <div class="modal-actions">
-                    <button type="button" class="modal-btn cancel" id="cancel-command">Annuler</button>
+                    <button type="button" class="modal-btn cancel" id="cancel-establishment">Annuler</button>
                     <button type="submit" class="modal-btn save">Enregistrer</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal des filtres -->
-    <div class="modal-overlay" id="filters-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title">Filtrer les recettes</h3>
-                <button class="close-modal" id="close-filters-modal">&times;</button>
-            </div>
-            
-            <div class="filter-options" id="filter-options">
-                <div class="filter-option">
-                    <input type="checkbox" id="filter-all" name="alcohol" value="all" checked>
-                    <label for="filter-all">Toutes</label>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="filter-none" name="alcohol" value="non-alcoolise">
-                    <label for="filter-none">Sans alcool</label>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="filter-whisky" name="alcohol" value="whisky">
-                    <label for="filter-whisky">Whisky</label>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="filter-cointreau" name="alcohol" value="cointreau">
-                    <label for="filter-cointreau">Cointreau</label>
-                </div>
-            </div>
-            
-            <div class="modal-actions">
-                <button class="modal-btn save" id="apply-filters">Appliquer</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Données des recettes
-        const recipesData = [
+        // Données des établissements (stockage local)
+        let establishmentsData = JSON.parse(localStorage.getItem('establishments')) || [
             {
-                id: "cointreau-sunrise",
-                name: "🌞 Cointreau Sunrise",
-                type: "Cocktail fruité sans alcool fort",
-                image: "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-                ingredients: [
-                    "4 cl de Cointreau",
-                    "10 cl de jus d'orange ou jus de mangue (ou moitié-moitié)",
-                    "2 cl de sirop de grenadine",
-                    "Glaçons"
-                ],
-                tools: [
-                    "Boston shaker (le gros shaker en 2 parties)",
-                    "Jigger 30/15 (le doseur à 2 embouts)",
-                    "Cuillère à agiter",
-                    "Pince à glace",
-                    "Passoire Hawthorne (le filtre avec ressort)",
-                    "Support (juste pour poser tout au propre)"
-                ],
-                steps: [
-                    "Prépare ton verre : Choisis un verre long (type verre highball). Avec la pince à glace, mets 4-5 glaçons dedans pour le rafraîchir.",
-                    "Mesure le Cointreau : Utilise le jigger 30 ml pour verser 4 cl (soit 40 ml) de Cointreau dans le shaker.",
-                    "Ajoute le jus : Verse 10 cl de jus (orange, mangue ou mix) dans le shaker.",
-                    "Ajoute des glaçons dans le shaker : Avec la pince à glace, mets 4-5 glaçons dans le shaker.",
-                    "Shake le tout : Ferme bien ton Boston shaker et shake énergiquement pendant 10-15 secondes.",
-                    "Verse dans le verre : Enlève les glaçons du verre s'ils sont fondus. Place la passoire Hawthorne sur le shaker et verse doucement dans le verre.",
-                    "Effet sunrise : Verse tout doucement 2 cl de grenadine le long de la cuillère à agiter pour qu'elle tombe au fond et crée l'effet dégradé."
-                ]
-            },
-            {
-                id: "pink-sunset",
-                name: "🌸 Pink Sunset",
-                type: "Cocktail fruité et coloré",
-                image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-                ingredients: [
-                    "2 cl de Cointreau",
-                    "6 cl de jus de cranberry",
-                    "6 cl de jus multifruits",
-                    "1 cl de grenadine",
-                    "Glaçons"
-                ],
-                tools: [
-                    "Jigger 30/15",
-                    "Boston shaker",
-                    "Pince à glace",
-                    "Cuillère à agiter",
-                    "Passoire Hawthorne",
-                    "Verre long type tumbler ou highball"
-                ],
-                steps: [
-                    "Prépare ton verre : Remplis ton verre de glaçons avec la pince à glace, pour qu'il soit bien frais.",
-                    "Mesure les ingrédients dans le shaker : 2 cl de Cointreau, 6 cl de jus de cranberry, 6 cl de jus multifruits, 1 cl de grenadine.",
-                    "Ajoute des glaçons dans le shaker : Mets 4 à 5 glaçons avec la pince à glace dans le shaker.",
-                    "Shake le tout : Ferme bien ton Boston shaker et shake énergiquement pendant 10-15 secondes.",
-                    "Verse dans le verre : Vide les glaçons fondus du verre si besoin. Filtre avec la passoire Hawthorne et verse le contenu dans le verre.",
-                    "Finition (optionnelle) : Si tu veux renforcer l'effet visuel 'sunset', verse un mini trait de grenadine doucement le long de la cuillère à agiter."
-                ]
-            },
-            {
-                id: "whisky-cooler-fruite",
-                name: "🥃 Whisky Cooler Fruité",
-                type: "Cocktail doux au whisky",
-                image: "https://images.unsplash.com/photo-1570598912132-0ba1dc952b7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-                ingredients: [
-                    "3 cl de Ballantine's (ou autre whisky doux)",
-                    "6 cl de jus multifruits",
-                    "1 cl de jus de citron jaune",
-                    "1 cl de sirop de grenadine",
-                    "Glaçons",
-                    "Optionnel : un trait d'eau gazeuse ou eau plate"
-                ],
-                tools: [
-                    "Jigger 30/15",
-                    "Boston shaker",
-                    "Pince à glace",
-                    "Cuillère à agiter",
-                    "Passoire Hawthorne"
-                ],
-                steps: [
-                    "Prépare ton verre : Remplis un verre type tumbler avec des glaçons pour le rafraîchir.",
-                    "Mesure les ingrédients dans le shaker : 3 cl de Ballantine's, 6 cl de jus multifruits, 1 cl de jus de citron jaune, 1 cl de sirop de grenadine.",
-                    "Ajoute des glaçons dans le shaker : Mets 4 à 5 glaçons à l'intérieur avec la pince à glace.",
-                    "Shake : Ferme le Boston shaker bien solidement et shake pendant 10-15 secondes.",
-                    "Verse et filtre : Retire les glaçons du verre si besoin. Place la passoire Hawthorne sur ton shaker et verse dans le verre.",
-                    "Option d'allègement : Si tu veux le rendre encore plus doux, ajoute un trait d'eau gazeuse ou plate."
-                ]
-            },
-            {
-                id: "whisky-sour",
-                name: "🍋🥃 Whisky Sour",
-                type: "Cocktail classique au whisky",
-                image: "https://www.liquor.com/thmb/Oa3KjaP_udh0TYQO9ckm0dPS5PA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/whiskey-sour-1500x1500-hero-c9df509bb1d141f1a8424051c3d78445.jpg",
-                ingredients: [
-                    "5 cl de whisky (bourbon conseillé)",
-                    "2,5 cl de jus de citron frais",
-                    "2 cl de sirop de sucre",
-                    "(optionnel) 1 blanc d'œuf",
-                    "Glaçons"
-                ],
-                tools: [
-                    "Boston shaker (le gros shaker en 2 parties)",
-                    "Jigger 30/15 (le doseur à 2 embouts)",
-                    "Cuillère à agiter",
-                    "Pince à glace",
-                    "Passoire Hawthorne (le filtre avec ressort)",
-                    "Support (juste pour poser tout au propre)"
-                ],
-                steps: [
-                    "Prépare ton verre : Choisis un verre old fashioned (verre bas et large). Rafraîchis-le avec quelques glaçons grâce à la pince à glace.",
-                    "Mesure le whisky : Utilise le jigger pour verser 5 cl de whisky dans le shaker.",
-                    "Ajoute le citron : Verse 2,5 cl de jus de citron frais.",
-                    "Ajoute le sirop : Mesure 2 cl de sirop de sucre et ajoute-le.",
-                    "Ajoute un blanc d'œuf si tu veux une texture mousseuse : Cela rend le cocktail plus onctueux.",
-                    "Shake à sec : Sans glaçons, shake vigoureusement pour bien mélanger (si tu as mis le blanc d'œuf).",
-                    "Ajoute des glaçons dans le shaker : Mets-en 4 à 5 avec la pince à glace.",
-                    "Shake à nouveau : Ferme bien ton shaker et secoue fort pendant 10-15 secondes.",
-                    "Verse dans le verre : Retire les glaçons fondus du verre. Place la passoire Hawthorne sur le shaker et verse doucement le cocktail.",
-                    "Décore : Ajoute une rondelle de citron ou une cerise au marasquin pour la touche finale."
-                ]
-            },
-            {
-    id: "virgin-mojito",
-    name: "🌿🍋 Virgin Mojito",
-    type: "Cocktail rafraîchissant sans alcool",
-    image: "https://fullofplants.com/wp-content/uploads/2021/05/easy-virgin-mojito-alcohol-free-kid-friendly-refreshing-drink-thumb.jpg",
-    ingredients: [
-        "1/2 citron vert (coupé en quartiers)",
-        "6 à 10 feuilles de menthe fraîche",
-        "2 cuillères à café de sucre de canne (ou 2 cl de sirop de sucre)",
-        "Glaçons ou glace pilée",
-        "12 cl de Sprite (ou 7up)"
-    ],
-    tools: [
-        "Verre long drink (type tumbler ou highball)",
-        "Pilon",
-        "Cuillère à agiter",
-        "Jigger (facultatif, pour mesurer le sucre ou le Sprite)",
-        "Pince à glace"
-    ],
-    steps: [
-        "Prépare ton verre : Utilise un verre long drink. Tu peux le rafraîchir à l'avance avec des glaçons.",
-        "Ajoute le citron vert : Mets les quartiers de citron vert au fond du verre.",
-        "Ajoute la menthe : Dépose les feuilles de menthe par-dessus.",
-        "Sucre : Ajoute le sucre de canne (ou le sirop de sucre).",
-        "Écrase doucement : Utilise le pilon pour presser le citron et la menthe sans trop broyer les feuilles.",
-        "Remplis de glace : Ajoute des glaçons ou de la glace pilée jusqu'en haut du verre.",
-        "Ajoute le Sprite : Verse le soda jusqu'à ras bord.",
-        "Mélange : Remue délicatement avec la cuillère pour bien répartir les saveurs.",
-        "Décore : Garnis avec une branche de menthe fraîche et une rondelle de citron vert."
-    ]
-}
+                id: "maison",
+                name: "Maison",
+                location: "Domicile personnel",
+                description: "Votre bar personnel pour préparer des cocktails en famille ou entre amis.",
+                image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            }
         ];
 
-        // Données des commandes (stockage local)
-        let commandsData = JSON.parse(localStorage.getItem('commands')) || [];
-
-        // Filtres
-        const filters = {
-            search: '',
-            alcohol: ['all'] // Peut contenir plusieurs filtres
-        };
-
         // Éléments du DOM
-        const recipesList = document.getElementById('recipes-list');
-        const commandsList = document.getElementById('commands-list');
+        const establishmentsGrid = document.getElementById('establishments-grid');
         const searchInput = document.getElementById('search-input');
-        const establishmentSelect = document.getElementById('establishment-select');
-        const newCommandBtn = document.getElementById('new-command-btn');
-        const commandModal = document.getElementById('command-modal');
+        const newEstablishmentBtn = document.getElementById('new-establishment-btn');
+        const establishmentModal = document.getElementById('establishment-modal');
         const closeModalBtn = document.getElementById('close-modal');
-        const cancelCommandBtn = document.getElementById('cancel-command');
-        const commandForm = document.getElementById('command-form');
-        const commandRecipeSelect = document.getElementById('command-recipe');
-        const openFiltersBtn = document.getElementById('open-filters');
-        const filtersModal = document.getElementById('filters-modal');
-        const closeFiltersModalBtn = document.getElementById('close-filters-modal');
-        const applyFiltersBtn = document.getElementById('apply-filters');
-        const activeFiltersContainer = document.getElementById('active-filters');
+        const cancelEstablishmentBtn = document.getElementById('cancel-establishment');
+        const establishmentForm = document.getElementById('establishment-form');
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', () => {
-            loadRecipes();
-            loadCommands();
+            loadEstablishments();
             
             // Événements
-            newCommandBtn.addEventListener('click', openCommandModal);
-            closeModalBtn.addEventListener('click', closeCommandModal);
-            cancelCommandBtn.addEventListener('click', closeCommandModal);
-            commandForm.addEventListener('submit', saveCommand);
-            searchInput.addEventListener('input', filterRecipesBySearch);
-            
-            // Filtres
-            openFiltersBtn.addEventListener('click', openFiltersModal);
-            closeFiltersModalBtn.addEventListener('click', closeFiltersModal);
-            applyFiltersBtn.addEventListener('click', applyFilters);
-            
-            // Ajout de l'écouteur pour la prévisualisation de l'image
-            commandRecipeSelect.addEventListener('change', function() {
-                const selectedRecipeId = this.value;
-                const recipe = recipesData.find(r => r.id === selectedRecipeId);
-                if (recipe) {
-                    const preview = document.getElementById('recipe-preview');
-                    if (!preview) {
-                        const previewDiv = document.createElement('div');
-                        previewDiv.id = 'recipe-preview';
-                        previewDiv.style.marginTop = '1rem';
-                        previewDiv.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; border-radius: 6px; max-height: 150px;">`;
-                        this.parentNode.appendChild(previewDiv);
-                    } else {
-                        preview.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; border-radius: 6px; max-height: 150px;">`;
-                    }
-                } else {
-                    const preview = document.getElementById('recipe-preview');
-                    if (preview) {
-                        preview.remove();
-                    }
-                }
-            });
+            newEstablishmentBtn.addEventListener('click', openEstablishmentModal);
+            closeModalBtn.addEventListener('click', closeEstablishmentModal);
+            cancelEstablishmentBtn.addEventListener('click', closeEstablishmentModal);
+            establishmentForm.addEventListener('submit', saveEstablishment);
+            searchInput.addEventListener('input', filterEstablishments);
         });
 
-        // Charger les recettes
-        function loadRecipes() {
-            recipesList.innerHTML = '';
+        // Charger les établissements
+        function loadEstablishments() {
+            establishmentsGrid.innerHTML = '';
             
-            const filteredRecipes = filterRecipes();
-            
-            if (filteredRecipes.length === 0) {
-                recipesList.innerHTML = '<p class="empty-state">Aucune recette ne correspond à vos critères</p>';
+            if (establishmentsData.length === 0) {
+                establishmentsGrid.innerHTML = '<p class="empty-state">Aucun établissement enregistré. Ajoutez-en un !</p>';
                 return;
             }
             
-            filteredRecipes.forEach(recipe => {
-                const item = document.createElement('div');
-                item.className = 'recipe-item';
-                item.setAttribute('data-id', recipe.id);
-                item.innerHTML = `
-                    <img src="${recipe.image}" alt="${recipe.name}" class="recipe-image">
-                    <div class="recipe-text">
-                        <h4>${recipe.name}</h4>
-                        <p>${recipe.type}</p>
-                    </div>
-                `;
-                recipesList.appendChild(item);
-                
-                // Ajouter l'option dans le select du modal
-                const option = document.createElement('option');
-                option.value = recipe.id;
-                option.textContent = recipe.name;
-                commandRecipeSelect.appendChild(option);
-                
-                item.addEventListener('click', () => {
-                    createCommandFromRecipe(recipe.id);
-                });
-            });
-        }
-
-        // Filtrer les recettes
-        function filterRecipes() {
-            return recipesData.filter(recipe => {
-                // Filtre par recherche
-                const searchMatch = 
-                    !filters.search ||
-                    recipe.name.toLowerCase().includes(filters.search) ||
-                    recipe.type.toLowerCase().includes(filters.search) ||
-                    recipe.ingredients.some(ing => ing.toLowerCase().includes(filters.search));
-                
-                // Filtre par type d'alcool
-                if (filters.alcohol.includes('all')) {
-                    return searchMatch;
-                }
-                
-                let alcoholMatch = false;
-                
-                if (filters.alcohol.includes('non-alcoolise') && isNonAlcoholic(recipe)) {
-                    alcoholMatch = true;
-                }
-                
-                if (filters.alcohol.includes('whisky') && containsWhisky(recipe)) {
-                    alcoholMatch = true;
-                }
-                
-                if (filters.alcohol.includes('cointreau') && containsCointreau(recipe)) {
-                    alcoholMatch = true;
-                }
-                
-                return searchMatch && alcoholMatch;
-            });
-        }
-
-        // Fonctions d'aide pour les filtres
-        function isNonAlcoholic(recipe) {
-            const alcoholKeywords = ['whisky', 'vodka', 'gin', 'rhum', 'tequila', 'cointreau', 'alcool'];
-            return !recipe.ingredients.some(ing => 
-                alcoholKeywords.some(keyword => ing.toLowerCase().includes(keyword)));
-        }
-
-        function containsWhisky(recipe) {
-            return recipe.ingredients.some(ing => 
-                ing.toLowerCase().includes('whisky') || ing.toLowerCase().includes('whiskey'));
-        }
-
-        function containsCointreau(recipe) {
-            return recipe.ingredients.some(ing => ing.toLowerCase().includes('cointreau'));
-        }
-
-        // Filtrer les recettes par recherche
-        function filterRecipesBySearch() {
-            filters.search = searchInput.value.toLowerCase();
-            loadRecipes();
-        }
-
-        // Ouvrir le modal des filtres
-        function openFiltersModal() {
-            filtersModal.classList.add('active');
-            
-            // Pré-sélectionner les filtres actifs
-            document.querySelectorAll('#filter-options input').forEach(input => {
-                input.checked = filters.alcohol.includes(input.value);
-            });
-        }
-
-        // Fermer le modal des filtres
-        function closeFiltersModal() {
-            filtersModal.classList.remove('active');
-        }
-
-        // Appliquer les filtres
-        function applyFilters() {
-            const selectedFilters = [];
-            document.querySelectorAll('#filter-options input:checked').forEach(input => {
-                selectedFilters.push(input.value);
-            });
-            
-            // Si "Tous" est coché ou aucun filtre n'est sélectionné, on montre tout
-            if (selectedFilters.includes('all') || selectedFilters.length === 0) {
-                filters.alcohol = ['all'];
-            } else {
-                filters.alcohol = selectedFilters;
-            }
-            
-            updateActiveFiltersDisplay();
-            loadRecipes();
-            closeFiltersModal();
-        }
-
-        // Afficher les filtres actifs
-        function updateActiveFiltersDisplay() {
-            activeFiltersContainer.innerHTML = '';
-            
-            if (filters.alcohol.includes('all') || filters.alcohol.length === 0) return;
-            
-            filters.alcohol.forEach(filter => {
-                const filterNames = {
-                    'non-alcoolise': 'Sans alcool',
-                    'whisky': 'Whisky',
-                    'cointreau': 'Cointreau'
-                };
-                
-                if (filterNames[filter]) {
-                    const el = document.createElement('div');
-                    el.className = 'active-filter';
-                    el.innerHTML = `
-                        <span>${filterNames[filter]}</span>
-                        <button data-filter="${filter}">&times;</button>
-                    `;
-                    activeFiltersContainer.appendChild(el);
-                }
-            });
-            
-            // Ajouter les événements pour supprimer les filtres
-            document.querySelectorAll('.active-filter button').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const filterToRemove = e.target.dataset.filter;
-                    filters.alcohol = filters.alcohol.filter(f => f !== filterToRemove);
-                    
-                    // Si plus de filtres, on montre tout
-                    if (filters.alcohol.length === 0) {
-                        filters.alcohol = ['all'];
-                    }
-                    
-                    updateActiveFiltersDisplay();
-                    loadRecipes();
-                });
-            });
-        }
-
-        // Charger les commandes
-        function loadCommands() {
-            commandsList.innerHTML = '';
-            
-            if (commandsData.length === 0) {
-                commandsList.innerHTML = '<p class="empty-state">Aucune commande pour le moment. Ajoutez-en une !</p>';
-                return;
-            }
-            
-            commandsData.forEach((command, index) => {
-                const recipe = recipesData.find(r => r.id === command.recipeId);
-                if (!recipe) return;
-                
-                const commandEl = document.createElement('div');
-                commandEl.className = 'command-card';
-                commandEl.innerHTML = `
-                    <div class="command-header">
-                        <div class="command-title-container">
-                            <img src="${recipe.image}" alt="${recipe.name}" class="command-image">
-                            <div>
-                                <h4 class="command-name">${command.name}</h4>
-                                <p class="command-recipe-name">${recipe.name}</p>
-                            </div>
+            establishmentsData.forEach(establishment => {
+                const card = document.createElement('div');
+                card.className = 'establishment-card';
+                card.innerHTML = `
+                    <img src="${establishment.image || 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'}" alt="${establishment.name}" class="establishment-img">
+                    <div class="establishment-info">
+                        <h3 class="establishment-name">${establishment.name}</h3>
+                        <div class="establishment-location">
+                            <span>📍</span>
+                            <span>${establishment.location}</span>
                         </div>
-                        <div class="command-actions">
-                            <button class="command-btn validate" data-index="${index}">Validée</button>
-                            <button class="command-btn delete" data-index="${index}">Supprimer</button>
-                        </div>
-                    </div>
-                    <div class="command-details">
-                        ${command.notes ? `<p><strong>Notes:</strong> ${command.notes}</p>` : ''}
-                        <div class="command-steps">
-                            <h4>Étapes de préparation:</h4>
-                            <ol class="command-steps-list">
-                                ${recipe.steps.map(step => `<li>${step}</li>`).join('')}
-                            </ol>
+                        <p class="establishment-description">
+                            ${establishment.description}
+                        </p>
+                        <div class="establishment-actions">
+                            <button class="establishment-btn primary" data-id="${establishment.id}">Ouvrir</button>
+                            <button class="establishment-btn secondary" data-id="${establishment.id}">Modifier</button>
                         </div>
                     </div>
                 `;
-                commandsList.appendChild(commandEl);
+                establishmentsGrid.appendChild(card);
                 
                 // Ajouter les événements aux boutons
-                const deleteBtn = commandEl.querySelector('.command-btn.delete');
-                const validateBtn = commandEl.querySelector('.command-btn.validate');
+                const openBtn = card.querySelector('.establishment-btn.primary');
+                const editBtn = card.querySelector('.establishment-btn.secondary');
                 
-                deleteBtn.addEventListener('click', (e) => {
-                    deleteCommand(parseInt(e.target.dataset.index));
+                openBtn.addEventListener('click', () => {
+                    openEstablishment(establishment.id);
                 });
                 
-                validateBtn.addEventListener('click', (e) => {
-                    validateCommand(parseInt(e.target.dataset.index));
+                editBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    editEstablishment(establishment.id);
                 });
             });
         }
 
-        // Ouvrir le modal de commande
-        function openCommandModal() {
-            commandModal.classList.add('active');
-            document.getElementById('command-name').focus();
+        // Filtrer les établissements
+        function filterEstablishments() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            document.querySelectorAll('.establishment-card').forEach(card => {
+                const name = card.querySelector('.establishment-name').textContent.toLowerCase();
+                const location = card.querySelector('.establishment-location span:last-child').textContent.toLowerCase();
+                const description = card.querySelector('.establishment-description').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || location.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
-        // Fermer le modal de commande
-        function closeCommandModal() {
-            commandModal.classList.remove('active');
-            commandForm.reset();
-            const preview = document.getElementById('recipe-preview');
-            if (preview) {
-                preview.remove();
-            }
+        // Ouvrir un établissement
+        function openEstablishment(id) {
+            // Ici vous pourriez rediriger vers une page spécifique ou charger les données
+            alert(`Ouverture de l'établissement ${id}`);
         }
 
-        // Créer une commande à partir d'une recette
-        function createCommandFromRecipe(recipeId) {
-            const recipe = recipesData.find(r => r.id === recipeId);
-            if (!recipe) return;
+        // Ouvrir le modal d'établissement
+        function openEstablishmentModal() {
+            establishmentModal.classList.add('active');
+            document.getElementById('establishment-name').focus();
+        }
+
+        // Fermer le modal d'établissement
+        function closeEstablishmentModal() {
+            establishmentModal.classList.remove('active');
+            establishmentForm.reset();
+        }
+
+        // Éditer un établissement
+        function editEstablishment(id) {
+            const establishment = establishmentsData.find(e => e.id === id);
+            if (!establishment) return;
             
             // Pré-remplir le formulaire
-            document.getElementById('command-name').value = `Nouvelle ${recipe.name}`;
-            document.getElementById('command-recipe').value = recipeId;
-            
-            // Mettre à jour la prévisualisation
-            const preview = document.getElementById('recipe-preview');
-            if (!preview) {
-                const previewDiv = document.createElement('div');
-                previewDiv.id = 'recipe-preview';
-                previewDiv.style.marginTop = '1rem';
-                previewDiv.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; border-radius: 6px; max-height: 150px;">`;
-                commandRecipeSelect.parentNode.appendChild(previewDiv);
-            } else {
-                preview.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="max-width: 100%; border-radius: 6px; max-height: 150px;">`;
-            }
+            document.getElementById('establishment-name').value = establishment.name;
+            document.getElementById('establishment-location').value = establishment.location;
+            document.getElementById('establishment-description').value = establishment.description;
+            document.getElementById('establishment-image').value = establishment.image || '';
             
             // Ouvrir le modal
-            openCommandModal();
+            openEstablishmentModal();
         }
 
-        // Sauvegarder une commande
-        function saveCommand(e) {
+        // Sauvegarder un établissement
+        function saveEstablishment(e) {
             e.preventDefault();
             
-            const commandName = document.getElementById('command-name').value;
-            const recipeId = document.getElementById('command-recipe').value;
-            const notes = document.getElementById('command-notes').value;
+            const name = document.getElementById('establishment-name').value;
+            const location = document.getElementById('establishment-location').value;
+            const description = document.getElementById('establishment-description').value;
+            const image = document.getElementById('establishment-image').value;
             
-            const recipe = recipesData.find(r => r.id === recipeId);
-            if (!recipe) return;
-            
-            const newCommand = {
-                id: Date.now(),
-                name: commandName,
-                recipeId: recipeId,
-                notes: notes,
-                createdAt: new Date().toISOString(),
-                status: 'pending'
+            const newEstablishment = {
+                id: name.toLowerCase().replace(/\s+/g, '-'),
+                name: name,
+                location: location,
+                description: description,
+                image: image || 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
             };
             
-            commandsData.push(newCommand);
-            saveCommandsToLocalStorage();
-            loadCommands();
-            closeCommandModal();
-        }
-
-        // Supprimer une commande
-        function deleteCommand(index) {
-            if (confirm('Supprimer cette commande ?')) {
-                commandsData.splice(index, 1);
-                saveCommandsToLocalStorage();
-                loadCommands();
+            // Vérifier si c'est une modification
+            const existingIndex = establishmentsData.findIndex(e => e.id === newEstablishment.id);
+            if (existingIndex >= 0) {
+                establishmentsData[existingIndex] = newEstablishment;
+            } else {
+                establishmentsData.push(newEstablishment);
             }
+            
+            saveEstablishmentsToLocalStorage();
+            loadEstablishments();
+            closeEstablishmentModal();
         }
 
-        // Valider une commande
-        function validateCommand(index) {
-            commandsData[index].status = 'completed';
-            saveCommandsToLocalStorage();
-            loadCommands();
-        }
-
-        // Sauvegarder les commandes dans le localStorage
-        function saveCommandsToLocalStorage() {
-            localStorage.setItem('commands', JSON.stringify(commandsData));
+        // Sauvegarder les établissements dans le localStorage
+        function saveEstablishmentsToLocalStorage() {
+            localStorage.setItem('establishments', JSON.stringify(establishmentsData));
         }
     </script>
 </body>

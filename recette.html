@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cocktails - Barman Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,6 +44,11 @@
         a {
             text-decoration: none;
             color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         .app-header {
@@ -179,6 +184,7 @@
             gap: 0.5rem;
             width: 100%;
             justify-content: center;
+            min-height: 44px;
         }
 
         .filter-button:hover {
@@ -305,6 +311,7 @@
             font-family: 'Montserrat', sans-serif;
             cursor: pointer;
             transition: all var(--transition);
+            min-height: 44px;
         }
 
         .modal-btn.apply {
@@ -480,6 +487,67 @@
             padding: 2rem;
         }
 
+        /* =================== */
+        /* === RESPONSIVE === */
+        /* =================== */
+        /* Pour les tablettes en orientation paysage */
+        @media (max-width: 1024px) and (min-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
+            }
+            
+            .sidebar-title {
+                font-size: 1.8rem;
+            }
+            
+            .cocktail-info h2 {
+                font-size: 2.2rem;
+            }
+            
+            .cocktail-content {
+                gap: 1.5rem;
+            }
+            
+            .ingredients-section h3, 
+            .tools-section h3, 
+            .recipe-section h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Pour les tablettes en orientation portrait */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .slogan {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+            
+            .cocktails-sidebar {
+                padding: 1.5rem;
+            }
+            
+            .cocktail-details {
+                padding: 1.5rem;
+            }
+            
+            .cocktail-info h2 {
+                font-size: 2rem;
+            }
+            
+            .cocktail-category {
+                font-size: 0.9rem;
+            }
+            
+            .filter-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+
         @media (max-width: 992px) {
             .cocktails-app {
                 flex-direction: column;
@@ -509,13 +577,18 @@
             .recipe-section {
                 grid-column: span 1;
             }
-
-            .logo {
-                font-size: 3.5rem;
-            }
         }
 
         @media (max-width: 576px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .slogan {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+            
             .cocktails-list {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
@@ -523,13 +596,35 @@
             .cocktail-img {
                 height: 100px;
             }
-
-            .logo {
-                font-size: 2.8rem;
+            
+            .cocktail-info h2 {
+                font-size: 1.8rem;
             }
-
-            .slogan {
-                font-size: 1rem;
+            
+            .cocktail-details {
+                padding: 1rem;
+            }
+            
+            .cocktail-content {
+                gap: 1rem;
+            }
+            
+            .ingredients-section, 
+            .tools-section, 
+            .recipe-section {
+                padding: 1rem;
+            }
+            
+            .modal {
+                padding: 1.5rem;
+            }
+            
+            .filter-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .app-header {
+                padding: 1.5rem 0;
             }
         }
     </style>
@@ -727,69 +822,69 @@
                 ]
             },
             {
-    id: "whisky-sour",
-    name: "🍋🥃 Whisky Sour",
-    category: "Cocktail classique au whisky",
-    image: "https://www.liquor.com/thmb/Oa3KjaP_udh0TYQO9ckm0dPS5PA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/whiskey-sour-1500x1500-hero-c9df509bb1d141f1a8424051c3d78445.jpg",
-    ingredients: [
-        "5 cl de whisky (bourbon conseillé)",
-        "2,5 cl de jus de citron frais",
-        "2 cl de sirop de sucre",
-        "(optionnel) 1 blanc d'œuf",
-        "Glaçons"
-    ],
-    tools: [
-        "Boston shaker (le gros shaker en 2 parties)",
-        "Jigger 30/15 (le doseur à 2 embouts)",
-        "Cuillère à agiter",
-        "Pince à glace",
-        "Passoire Hawthorne (le filtre avec ressort)",
-        "Support (juste pour poser tout au propre)"
-    ],
-    steps: [
-        "Prépare ton verre : Choisis un verre old fashioned (verre bas et large). Rafraîchis-le avec quelques glaçons grâce à la pince à glace.",
-        "Mesure le whisky : Utilise le jigger pour verser 5 cl de whisky dans le shaker.",
-        "Ajoute le citron : Verse 2,5 cl de jus de citron frais.",
-        "Ajoute le sirop : Mesure 2 cl de sirop de sucre et ajoute-le.",
-        "Ajoute un blanc d'œuf si tu veux une texture mousseuse : Cela rend le cocktail plus onctueux.",
-        "Shake à sec : Sans glaçons, shake vigoureusement pour bien mélanger (si tu as mis le blanc d'œuf).",
-        "Ajoute des glaçons dans le shaker : Mets-en 4 à 5 avec la pince à glace.",
-        "Shake à nouveau : Ferme bien ton shaker et secoue fort pendant 10-15 secondes.",
-        "Verse dans le verre : Retire les glaçons fondus du verre. Place la passoire Hawthorne sur le shaker et verse doucement le cocktail.",
-        "Décore : Ajoute une rondelle de citron ou une cerise au marasquin pour la touche finale."
-    ]
-},
-{
-    id: "virgin-mojito",
-    name: "🌿🍋 Virgin Mojito",
-    category: "Cocktail rafraîchissant sans alcool",
-    image: "https://fullofplants.com/wp-content/uploads/2021/05/easy-virgin-mojito-alcohol-free-kid-friendly-refreshing-drink-thumb.jpg",
-    ingredients: [
-        "1/2 citron vert (coupé en quartiers)",
-        "6 à 10 feuilles de menthe fraîche",
-        "2 cuillères à café de sucre de canne (ou 2 cl de sirop de sucre)",
-        "Glaçons ou glace pilée",
-        "12 cl de Sprite (ou 7up)"
-    ],
-    tools: [
-        "Verre long drink (type tumbler ou highball)",
-        "Pilon",
-        "Cuillère à agiter",
-        "Jigger (facultatif, pour mesurer le sucre ou le Sprite)",
-        "Pince à glace"
-    ],
-    steps: [
-        "Prépare ton verre : Utilise un verre long drink. Tu peux le rafraîchir à l'avance avec des glaçons.",
-        "Ajoute le citron vert : Mets les quartiers de citron vert au fond du verre.",
-        "Ajoute la menthe : Dépose les feuilles de menthe par-dessus.",
-        "Sucre : Ajoute le sucre de canne (ou le sirop de sucre).",
-        "Écrase doucement : Utilise le pilon pour presser le citron et la menthe sans trop broyer les feuilles.",
-        "Remplis de glace : Ajoute des glaçons ou de la glace pilée jusqu'en haut du verre.",
-        "Ajoute le Sprite : Verse le soda jusqu'à ras bord.",
-        "Mélange : Remue délicatement avec la cuillère pour bien répartir les saveurs.",
-        "Décore : Garnis avec une branche de menthe fraîche et une rondelle de citron vert."
-    ]
-}
+                id: "whisky-sour",
+                name: "🍋🥃 Whisky Sour",
+                category: "Cocktail classique au whisky",
+                image: "https://www.liquor.com/thmb/Oa3KjaP_udh0TYQO9ckm0dPS5PA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/whiskey-sour-1500x1500-hero-c9df509bb1d141f1a8424051c3d78445.jpg",
+                ingredients: [
+                    "5 cl de whisky (bourbon conseillé)",
+                    "2,5 cl de jus de citron frais",
+                    "2 cl de sirop de sucre",
+                    "(optionnel) 1 blanc d'œuf",
+                    "Glaçons"
+                ],
+                tools: [
+                    "Boston shaker (le gros shaker en 2 parties)",
+                    "Jigger 30/15 (le doseur à 2 embouts)",
+                    "Cuillère à agiter",
+                    "Pince à glace",
+                    "Passoire Hawthorne (le filtre avec ressort)",
+                    "Support (juste pour poser tout au propre)"
+                ],
+                steps: [
+                    "Prépare ton verre : Choisis un verre old fashioned (verre bas et large). Rafraîchis-le avec quelques glaçons grâce à la pince à glace.",
+                    "Mesure le whisky : Utilise le jigger pour verser 5 cl de whisky dans le shaker.",
+                    "Ajoute le citron : Verse 2,5 cl de jus de citron frais.",
+                    "Ajoute le sirop : Mesure 2 cl de sirop de sucre et ajoute-le.",
+                    "Ajoute un blanc d'œuf si tu veux une texture mousseuse : Cela rend le cocktail plus onctueux.",
+                    "Shake à sec : Sans glaçons, shake vigoureusement pour bien mélanger (si tu as mis le blanc d'œuf).",
+                    "Ajoute des glaçons dans le shaker : Mets-en 4 à 5 avec la pince à glace.",
+                    "Shake à nouveau : Ferme bien ton shaker et secoue fort pendant 10-15 secondes.",
+                    "Verse dans le verre : Retire les glaçons fondus du verre. Place la passoire Hawthorne sur le shaker et verse doucement le cocktail.",
+                    "Décore : Ajoute une rondelle de citron ou une cerise au marasquin pour la touche finale."
+                ]
+            },
+            {
+                id: "virgin-mojito",
+                name: "🌿🍋 Virgin Mojito",
+                category: "Cocktail rafraîchissant sans alcool",
+                image: "https://fullofplants.com/wp-content/uploads/2021/05/easy-virgin-mojito-alcohol-free-kid-friendly-refreshing-drink-thumb.jpg",
+                ingredients: [
+                    "1/2 citron vert (coupé en quartiers)",
+                    "6 à 10 feuilles de menthe fraîche",
+                    "2 cuillères à café de sucre de canne (ou 2 cl de sirop de sucre)",
+                    "Glaçons ou glace pilée",
+                    "12 cl de Sprite (ou 7up)"
+                ],
+                tools: [
+                    "Verre long drink (type tumbler ou highball)",
+                    "Pilon",
+                    "Cuillère à agiter",
+                    "Jigger (facultatif, pour mesurer le sucre ou le Sprite)",
+                    "Pince à glace"
+                ],
+                steps: [
+                    "Prépare ton verre : Utilise un verre long drink. Tu peux le rafraîchir à l'avance avec des glaçons.",
+                    "Ajoute le citron vert : Mets les quartiers de citron vert au fond du verre.",
+                    "Ajoute la menthe : Dépose les feuilles de menthe par-dessus.",
+                    "Sucre : Ajoute le sucre de canne (ou le sirop de sucre).",
+                    "Écrase doucement : Utilise le pilon pour presser le citron et la menthe sans trop broyer les feuilles.",
+                    "Remplis de glace : Ajoute des glaçons ou de la glace pilée jusqu'en haut du verre.",
+                    "Ajoute le Sprite : Verse le soda jusqu'à ras bord.",
+                    "Mélange : Remue délicament avec la cuillère pour bien répartir les saveurs.",
+                    "Décore : Garnis avec une branche de menthe fraîche et une rondelle de citron vert."
+                ]
+            }
         ];
 
         // Variables globales

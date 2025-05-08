@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Barman Pro - L'Art Noir du Mixologie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,11 @@
         a {
             text-decoration: none;
             color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         /* =================== */
@@ -253,6 +258,7 @@
             border-radius: 50px;
             box-shadow: var(--glow);
             font-family: 'Montserrat', sans-serif;
+            min-height: 44px;
         }
 
         .gold-button::before {
@@ -307,20 +313,63 @@
         /* =================== */
         /* === RESPONSIVE === */
         /* =================== */
-        @media (max-width: 1024px) {
+        /* Pour les tablettes en orientation paysage */
+        @media (max-width: 1024px) and (min-width: 768px) {
             .logo {
                 font-size: 3.5rem;
             }
-
+            
             .hero-content h2, .section-content h2 {
                 font-size: 3rem;
             }
+            
+            .hero-content p, .section-content p {
+                font-size: 1.3rem;
+            }
+            
+            .gold-button {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+            
+            /* Adaptation pour la section commande */
+            #order-hero::before, 
+            #order-hero::after {
+                background-attachment: scroll;
+            }
+        }
 
-            /* Adaptation pour la section commande en mobile */
+        /* Pour les tablettes en orientation portrait */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .slogan {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+            
+            .hero-content h2, .section-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p, .section-content p {
+                font-size: 1.2rem;
+                max-width: 80%;
+            }
+            
+            .gold-button {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.9rem;
+            }
+            
+            /* Adaptation pour la section commande */
             #order-hero::before, 
             #order-hero::after {
                 width: 100%;
                 height: 50%;
+                background-attachment: scroll;
             }
 
             #order-hero::before {
@@ -335,17 +384,43 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 576px) {
             .logo {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
-
+            
+            .slogan {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+            
             .hero-content h2, .section-content h2 {
-                font-size: 2.2rem;
+                font-size: 2rem;
+                margin-bottom: 1rem;
             }
-
+            
             .hero-content p, .section-content p {
-                font-size: 1.2rem;
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+                max-width: 90%;
+            }
+            
+            .gold-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .main-header {
+                padding: 1rem 0;
+            }
+            
+            .main-header.scrolled {
+                padding: 0.8rem 0;
+            }
+            
+            footer {
+                padding: 2rem 1rem;
+                font-size: 0.8rem;
             }
         }
     </style>
